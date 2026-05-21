@@ -1,2 +1,9 @@
 release
 versions/v3
+node_modules/
+.env
+__pycache__/
+*.pyc
+*.db
+.venv/
+venv/
