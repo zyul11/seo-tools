@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap Parser — Free XML Sitemap URL Extractor</title>
+<meta name="description" content="Free online sitemap parser. Paste your XML sitemap and instantly extract all URLs. Supports nested sitemap indexes. No registration needed.">
+<link rel="canonical" href="https://seo.textools.site/tools/sitemap-parser/">
+<meta property="og:title" content="Sitemap Parser — Free SEO Tool">
+<meta property="og:description" content="Extract all URLs from any XML sitemap. Paste your sitemap content and see every URL in a clean table with priority and change frequency.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Sitemap Parser","description":"Free online XML sitemap parser. Paste sitemap content to extract all URLs, priorities, and change frequencies.","applicationCategory":"SEO Tool","operatingSystem":"Web"}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1e1e2e;--surface:#181825;--surface2:#313244;--text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;--blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;--border:#45475a;--radius:12px;--radius-sm:8px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}.nav .nav-active{color:#cdd6f4;font-weight:600}
+.container{max-width:900px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:24px;max-width:550px}
+textarea{width:100%;min-height:220px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;color:var(--text);font-size:13px;font-family:monospace;line-height:1.5;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+textarea::placeholder{color:#585b70}
+.actions{display:flex;gap:10px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.btn{padding:8px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b}.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:var(--surface2);color:var(--text)}.btn-secondary:hover{background:var(--border)}
+.summary{display:none;margin-top:16px;gap:12px;grid-template-columns:repeat(3,1fr)}
+.summary.show{display:grid}
+.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;text-align:center}
+.summary-card .num{font-size:22px;font-weight:800;color:var(--blue)}.summary-card .label{font-size:10px;color:var(--muted);text-transform:uppercase}
+.results{display:none;margin-top:12px}
+.results.show{display:block}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm);max-height:500px;overflow-y:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:8px 12px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);background:rgba(24,24,37,.5);font-size:10px;text-transform:uppercase;position:sticky;top:0}
+td{padding:7px 12px;border-bottom:1px solid rgba(69,71,90,.3);color:var(--text);word-break:break-all}
+tr:nth-child(even) td{background:rgba(24,24,37,.3)}tr:hover td{background:rgba(137,180,250,.04)}
+.url-cell{font-size:11px;color:var(--blue)}
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none}
+@media(max-width:600px){.summary{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+<div class="container">
+  <div class="page-top">
+    <div class="breadcrumb"><a href="/">Home</a> <span>›</span> <a href="/tools/">Free Tools</a> <span>›</span> <span>Sitemap Parser</span></div>
+    <h1>🗺️ <span>Sitemap Parser</span></h1>
+    <p class="subtitle">Paste your XML sitemap content below. Instantly extract all URLs with priorities, change frequencies, and last modified dates. Supports both standard sitemaps and sitemap indexes.</p>
+  </div>
+  <textarea id="xmlInput" placeholder="Paste your XML sitemap content here...&#10;&#10;Example:&#10;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;&#10;  &lt;url&gt;&#10;    &lt;loc&gt;https://example.com/&lt;/loc&gt;&#10;    &lt;priority&gt;1.0&lt;/priority&gt;&#10;  &lt;/url&gt;&#10;&lt;/urlset&gt;"></textarea>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="parseSitemap()">Parse Sitemap</button>
+    <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
+    <button class="btn btn-secondary" onclick="loadSample()">Load Sample</button>
+    <span style="font-size:11px;color:var(--muted);margin-left:auto">Top 500 URLs shown</span>
+  </div>
+  <div class="summary" id="summary">
+    <div class="summary-card"><div class="num" id="totalUrls">0</div><div class="label">Total URLs</div></div>
+    <div class="summary-card"><div class="num" id="uniqueHosts">0</div><div class="label">Domains</div></div>
+    <div class="summary-card"><div class="num" id="avgPriority">—</div><div class="label">Avg Priority</div></div>
+  </div>
+  <div class="results" id="results">
+    <div class="table-wrap"><table><thead><tr><th>#</th><th>URL</th><th>Priority</th><th>Change Freq</th><th>Last Modified</th></tr></thead><tbody id="tableBody"></tbody></table></div>
+  </div>
+</div>
+<div class="footer"><a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools.</div>
+<script>
+function $(id){return document.getElementById(id)}
+function parseSitemap(){
+  const xml=$('xmlInput').value.trim();
+  if(!xml){alert('Please paste your sitemap XML first.');return}
+  const parser=new DOMParser();const doc=parser.parseFromString(xml,'text/xml');
+  const parseErr=doc.querySelector('parsererror');
+  if(parseErr){alert('Invalid XML: '+parseErr.textContent.slice(0,100));return}
+  const urls=doc.querySelectorAll('url');const sitemaps=doc.querySelectorAll('sitemap');
+  let rows=[];
+  if(urls.length){
+    urls.forEach(u=>{
+      const loc=u.querySelector('loc')?.textContent||'';
+      const pri=u.querySelector('priority')?.textContent||'—';
+      const freq=u.querySelector('changefreq')?.textContent||'—';
+      const lastmod=u.querySelector('lastmod')?.textContent||'—';
+      if(loc)rows.push({url:loc,priority:pri,freq,lastmod});
+    });
+  }else if(sitemaps.length){
+    sitemaps.forEach(s=>{
+      const loc=s.querySelector('loc')?.textContent||'';
+      if(loc)rows.push({url:loc,priority:'—',freq:'—',lastmod:s.querySelector('lastmod')?.textContent||'—'});
+    });
+  }else{alert('No <url> or <sitemap> elements found. Make sure you pasted a valid XML sitemap.');return}
+  displayResults(rows);
+}
+function displayResults(rows){
+  const top=rows.slice(0,500);
+  const hosts=new Set(rows.map(r=>{try{return new URL(r.url).hostname}catch{return'?'}}));
+  const priorities=rows.filter(r=>r.priority!=='—').map(r=>parseFloat(r.priority)).filter(p=>!isNaN(p));
+  const avg=priorities.length? (priorities.reduce((a,b)=>a+b,0)/priorities.length).toFixed(2):'—';
+  $('totalUrls').textContent=rows.length;$('uniqueHosts').textContent=hosts.size;$('avgPriority').textContent=avg;
+  $('summary').classList.add('show');
+  $('results').classList.add('show');
+  $('tableBody').innerHTML=top.map((r,i)=>`<tr><td style="color:var(--muted);font-size:11px">${i+1}</td><td class="url-cell">${escHtml(r.url)}</td><td>${r.priority}</td><td>${r.freq}</td><td style="font-size:11px;color:var(--muted)">${r.lastmod}</td></tr>`).join('');
+}
+function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function clearAll(){$('xmlInput').value='';$('summary').classList.remove('show');$('results').classList.remove('show')}
+function loadSample(){$('xmlInput').value='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc><priority>1.0</priority><changefreq>daily</changefreq><lastmod>2026-05-22</lastmod></url>\n  <url><loc>https://example.com/about</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>\n  <url><loc>https://example.com/blog</loc><priority>0.9</priority><changefreq>weekly</changefreq><lastmod>2026-05-20</lastmod></url>\n</urlset>'}
+</script>
+</body>
+</html>

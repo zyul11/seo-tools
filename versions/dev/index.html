@@ -70,6 +70,7 @@
   <div class="logo">🔍 <span>SEO</span> Audit</div>
   <div>
     <a href="https://textools.site">Text Tools</a>
+    <a href="/tools/">Free Tools</a>
     <a href="/blog/">Blog</a>
     <a href="#pricing">Pricing</a>
     <a href="/faq/">FAQ</a>
@@ -93,6 +94,9 @@
   </form>
   <div class="trust">⚡ Takes 10-30 seconds · Free basic report · No signup required</div>
   <div style="margin-top:8px;font-size:11px;color:#45475a">🔑 Already have a key? <a href="javascript:void(0)" onclick="showLoginModal()" style="color:#585b70;text-decoration:underline;text-underline-offset:3px">Login here</a></div>
+  <div style="margin-top:30px;text-align:center">
+    <img src="/images/hero-illustration.svg" alt="SEO Audit illustration" style="max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(137,180,250,.1);max-height:320px">
+  </div>
 </div>
 
 <!-- Dashboard (shown when key is logged in) -->
@@ -180,8 +184,11 @@
       <p>Every Wednesday, our engine pulls new rules from Google official sources. Your next scan catches what others miss</p>
     </div>
   </div>
-</div>
-
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:24px">
+    <img src="/images/how-it-works.svg" alt="How the SEO audit system works" style="max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(137,180,250,.1);max-height:380px">
+  </div>
 </div>
 
 <!-- Pricing -->
@@ -227,7 +234,7 @@
       </div>
       <div class="price-row">
         <div class="price-num"><span class="old-price">$19</span>$14.9 <span class="save-tag">Save 22%</span></div>
-        <button class="btn primary" id="subscribeStarter" style="cursor:pointer">Get Starter Pack</button>
+        <button class="btn primary" id="subscribeStarter" onclick="openSubscribe('starter')" style="cursor:pointer">Get Starter Pack</button>
       </div>
     </div>
 
@@ -248,7 +255,7 @@
       </div>
       <div class="price-row">
         <div class="price-num"><span class="old-price">$69</span>$49 <span class="save-tag">Save 29%</span> <small>/one-time</small></div>
-        <button class="btn green" id="subscribeGrowth" style="cursor:pointer">Get Growth Pack →</button>
+        <button class="btn green" id="subscribeGrowth" onclick="openSubscribe('growth')" style="cursor:pointer">Get Growth Pack →</button>
       </div>
       <div class="urgency-line"><span class="pulse">⚡</span> 25 scans = 6+ months of weekly monitoring for 1 site</div>
     </div>
@@ -269,11 +276,39 @@
       </div>
       <div class="price-row">
         <div class="price-num"><span class="old-price">$199</span>$149 <span class="save-tag">Save 25%</span> <small>/one-time</small></div>
-        <button class="btn primary" id="subscribePro" style="cursor:pointer">Get Pro Pack</button>
+        <button class="btn primary" id="subscribePro" onclick="openSubscribe('pro')" style="cursor:pointer">Get Pro Pack</button>
       </div>
     </div>
 
   </div>
+
+  <!-- Weekly Subscription -->
+  <div class="sub-card" style="max-width:900px;margin:20px auto 0;display:grid;grid-template-columns:0.8fr 1.2fr auto;align-items:center;gap:20px;background:linear-gradient(135deg,rgba(137,180,250,.06),rgba(166,227,161,.06));border:1px solid rgba(137,180,250,.15);border-radius:14px;padding:20px 24px">
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:32px">📬</div>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#cdd6f4">Weekly Subscription</div>
+        <div style="font-size:11px;color:#585b70;margin-top:2px">Pay once, get 30 days. Renew when you want.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <span class="tag" style="background:rgba(137,180,250,.12);color:#89b4fa;font-size:11px;padding:3px 10px;border-radius:6px">Auto-scan every week</span>
+      <span class="tag" style="background:rgba(166,227,161,.12);color:#a6e3a1;font-size:11px;padding:3px 10px;border-radius:6px">Email report delivery</span>
+      <span class="tag" style="background:rgba(249,226,175,.12);color:#f9e2af;font-size:11px;padding:3px 10px;border-radius:6px">Cancel any time</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;justify-self:end">
+      <div style="text-align:right">
+        <div style="font-size:24px;font-weight:800;color:#a6e3a1">$9.9</div>
+        <div style="font-size:10px;color:#585b70">/month · USDT TRC-20</div>
+      </div>
+      <button class="btn green" onclick="openSubscribe('monthly')" style="cursor:pointer;padding:10px 20px;font-size:13px;white-space:nowrap">Subscribe →</button>
+    </div>
+
+  </div>
+
   <p class="limited-notice">🕐 These are launch prices. Regular pricing applies once we hit our first 100 paid users. Lock in the lowest rate while you can.</p>
 </div>
 

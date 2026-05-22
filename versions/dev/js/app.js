@@ -173,6 +173,8 @@ async function switchToDashboard(key, balance) {
   }
   updateDashBalance(balance);
   updateDashMeta(key);
+  // Load GSC data
+  fetchGscData(key);
 }
 
 function updateDashBalance(balance) {
@@ -234,6 +236,59 @@ function dashLogout() {
   document.getElementById('toolPage').classList.add('show');
   document.getElementById('resultsPage').classList.remove('show');
   document.getElementById('resultsPage').classList.add('hidden');
+}
+
+// ── GSC Dashboard (owner only) ──
+async function fetchGscData(key) {
+  const el = document.getElementById('dashExtra');
+  el.innerHTML = ''; // clear by default
+  
+  // Only show for owner's key — check via backend
+  try {
+    const res = await fetch(getApiBase() + '/v1/seo/check-owner?key=' + encodeURIComponent(key));
+    const d = await res.json();
+    if (!d.success || !d.is_owner) return;
+  } catch(e) { return; }
+  
+  try {
+    const res = await fetch(getApiBase() + '/v1/seo/gsc-latest');
+    const data = await res.json();
+    if (!data.success || !data.data) { el.innerHTML = ''; return; }
+    
+    const domains = data.data;
+    const entries = Object.entries(domains);
+    if (entries.length === 0) { el.innerHTML = ''; return; }
+    
+    let html = '<div style="margin-top:16px;padding:14px;background:rgba(24,24,37,.6);border:1px solid rgba(137,180,250,.1);border-radius:10px">' +
+      '<div style="font-size:12px;font-weight:700;color:#89b4fa;margin-bottom:10px">📈 Search Performance (Google)</div>';
+    
+    entries.forEach(([domain, info]) => {
+      const shortName = domain.replace('.site', '').replace('www.', '');
+      html += '<div style="background:rgba(24,24,37,.4);border:1px solid rgba(69,71,90,.3);border-radius:8px;padding:10px 12px;margin-top:8px">' +
+        '<div style="font-size:11px;color:#a6adc8;font-weight:600;margin-bottom:6px">' + shortName + '</div>' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:10px">' +
+          '<div><span style="color:#585b70">👁️</span> <span style="color:#cdd6f4">' + (info.impressions || 0).toLocaleString() + '</span></div>' +
+          '<div><span style="color:#585b70">🖱️</span> <span style="color:#cdd6f4">' + (info.clicks || 0).toLocaleString() + '</span></div>' +
+          '<div><span style="color:#585b70">📊</span> <span style="color:#cdd6f4">' + (info.ctr || 0) + '%</span></div>' +
+          '<div><span style="color:#585b70">🏆</span> <span style="color:#cdd6f4">#' + (info.avg_position || 0) + '</span></div>' +
+        '</div>';
+      const queries = info.top_queries || {};
+      const qEntries = Object.entries(queries).slice(0, 3);
+      if (qEntries.length) {
+        html += '<div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(69,71,90,.2);font-size:9px;color:#585b70">';
+        qEntries.forEach(([q, d]) => {
+          html += '<div style="display:flex;justify-content:space-between;margin-bottom:2px"><span>' + q.slice(0, 40) + '</span><span>' + (d.impressions||0) + ' 👁 ' + (d.position||0).toFixed(1) + ' pos</span></div>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
+    });
+    
+    html += '</div>';
+    el.innerHTML = html;
+  } catch(e) {
+    el.innerHTML = '';
+  }
 }
 
 async function dashRefresh() {
@@ -598,24 +653,29 @@ const PLAN_INFO = {
   growth: { price: 49, name: 'Growth Pack', scans: 25, pkg: 'seo_growth',
     benefits: ['Everything in Starter','Auto-generated optimized HTML','SEO migration guide','25 scans — manual + weekly auto push','Register URLs for weekly monitoring'] },
   pro: { price: 149, name: 'Pro Pack', scans: 150, pkg: 'seo_pro',
-    benefits: ['All Growth benefits','150 scans — 1+ year of weekly monitoring','Score trend dashboard with chart','AI Visibility tracking (coming soon)','Register unlimited URLs for weekly push','🆕 Every future feature included — no extra cost, ever'] }
+    benefits: ['All Growth benefits','150 scans — 1+ year of weekly monitoring','Score trend dashboard with chart','AI Visibility tracking (coming soon)','Register unlimited URLs for weekly push','🆕 Every future feature included — no extra cost, ever'] },
+  monthly: { price: 9.9, name: 'Weekly Subscription', scans: '∞', pkg: 'seo_monthly',
+    benefits: ['One URL auto-scanned every week','Email report delivered every Monday','Score trend over time — see SEO improve','30 days per payment. Renew when you want.','No lock-in. Cancel anytime. No penalty.'] }
 };
 
 function openSubscribe(tier) {
   const p = PLAN_INFO[tier];
   const report = window._lastReport;
   const domain = report && report.url ? new URL(report.url).hostname : '';
+  const isMonthly = tier === 'monthly';
   document.getElementById('subscribeContent').innerHTML = `
-    <h3>${tier === 'starter' ? '📊' : tier === 'growth' ? '🔧' : '🏆'} ${p.name}</h3>
-    <div class="price-tag">$${p.price} <small style="font-size:12px;color:#585b70">— ${p.scans} scans</small></div>
+    <h3>${isMonthly ? '📬' : tier === 'starter' ? '📊' : tier === 'growth' ? '🔧' : '🏆'} ${p.name}</h3>
+    <div class="price-tag">$${p.price} <small style="font-size:12px;color:#585b70">${isMonthly ? '/month' : '— ' + p.scans + ' scans'}</small></div>
     <ul class="benefits-list">
       ${p.benefits.map(b => '<li>'+b+'</li>').join('')}
     </ul>
     <label>Your Email Address</label>
     <input type="email" id="subEmail" placeholder="you@example.com" required>
     <div id="subStatus" class="status-msg"></div>
-    <button class="btn-submit" id="payBtn" onclick="payWithUsdt('${tier}')" style="background:linear-gradient(135deg,#a6e3a1,#94e2d5);color:#11111b">₮ Pay with USDT (TRC-20) $${p.price}</button>
-    <div class="detail">Your key will be sent to your email within ~2 minutes after payment. Use it to audit any URL, anytime.<br>Register URLs for weekly auto-push SEO audit reports.</div>
+    <button class="btn-submit" id="payBtn" onclick="payWithUsdt('${tier}')" style="background:linear-gradient(135deg,#a6e3a1,#94e2d5);color:#11111b">₮ Pay with USDT (TRC-20) $${p.price}${isMonthly ? '/mo' : ''}</button>
+    <div class="detail">${isMonthly
+      ? 'Your subscription starts after payment. We\'ll scan your URL every week and email the report. Renew each month — pay $9.9 USDT again for the next 30 days. Cancel anytime, no strings attached.'
+      : 'Your key will be sent to your email within ~2 minutes after payment. Use it to audit any URL, anytime.<br>Register URLs for weekly auto-push SEO audit reports.'}</div>
   `;
   document.getElementById('subscribeModal').classList.add('show');
 }
@@ -1009,15 +1069,7 @@ function generateOptimizedHtml(report) {
   headTags.push('<' + 'script type="application/ld+json">\\n{\\n  "@context": "https://schema.org",\\n  "@type": "WebPage",\\n  "name": "'+title.replace(/"/g,'\\"')+'",\\n  "description": "'+desc.replace(/"/g,'\\"')+'"\\n}\\n<'+'/script>');
   headTags.push('<meta name="robots" content="index, follow">');
   headTags.push('<link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27><text y=%2720%27 font-size=%2720%27>🔍</text></svg>">');
-  return '<!DOCTYPE html>\\n<html lang="en">\\n<head>\\n  ' + headTags.join('\\n  ') + '\\n</head>\\n<body>
-<noscript>
-  <div style="padding:40px;text-align:center;background:#1e1e2e;color:#cdd6f4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-    <div style="font-size:48px;margin-bottom:16px">🔍</div>
-    <h1 style="font-size:24px;margin-bottom:12px;color:#cdd6f4">SEO Audit Tool</h1>
-    <p style="color:#7f849c;max-width:400px;margin-bottom:20px">This tool requires JavaScript to run the SEO analysis engine. Please enable JavaScript in your browser settings and reload the page.</p>
-    <a href="https://seo.textools.site/" style="color:#89b4fa;text-decoration:underline">Reload →</a>
-  </div>
-</noscript>\\n  <!-- Your content here -->\\n</body>\\n</html>';
+  return '<!DOCTYPE html>\\n<html lang="en">\\n<head>\\n  ' + headTags.join('\\n  ') + '\\n</head>\\n<body>\\n<noscript>\\n  <div style="padding:40px;text-align:center;background:#1e1e2e;color:#cdd6f4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;">\\n    <div style="font-size:48px;margin-bottom:16px">\U0001f50d</div>\\n    <h1 style="font-size:24px;margin-bottom:12px;color:#cdd6f4">SEO Audit Tool</h1>\\n    <p style="color:#7f849c;max-width:400px;margin-bottom:20px">This tool requires JavaScript to run the SEO analysis engine. Please enable JavaScript in your browser settings and reload the page.</p>\\n    <a href="https://seo.textools.site/" style="color:#89b4fa;text-decoration:underline">Reload \u2192</a>\\n  </div>\\n</noscript>\\n  <!-- Your content here -->\\n</body>\\n</html>';
 }
 
 // ── Expert Fix / Report (keeping existing functions for compatibility) ──
@@ -1034,6 +1086,20 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(() => document.getElementById('urlInput').focus(), 500);
   // Auto-login if key found in URL or localStorage
   setTimeout(autoInitKey, 100);
+  // Fetch global SEO audit stats
+  setTimeout(async () => {
+    try {
+      const API_BASE = window.location.origin === 'file://' || window.location.origin === 'null' ? 'http://127.0.0.1:8119' : window.location.origin;
+      const res = await fetch(API_BASE + '/v1/seo/stats');
+      const data = await res.json();
+      if (data.success && data.data) {
+        document.getElementById('statSites').textContent = data.data.sites.toLocaleString();
+        document.getElementById('statIssues').textContent = data.data.issues.toLocaleString();
+        document.getElementById('statFixes').textContent = data.data.fixes.toLocaleString();
+        try { localStorage.setItem('seoAuditStats', String(data.data.sites)); } catch(e){}
+      }
+    } catch(e) {}
+  }, 500);
   // Bind pricing buttons
   function bindClick(id, fn) {
     const el = document.getElementById(id);
