@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://seo.textools.site/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://seo.textools.site/faq/</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/blog/</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+
+  <!-- SEO Tool Comparisons -->
+  <url><loc>https://seo.textools.site/blog/ahrefs-vs-semrush-vs-moz/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/blog/screaming-frog-vs-sitebulb/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/blog/google-search-console-vs-other-seo-tools/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Blog Posts -->
+  <url><loc>https://seo.textools.site/blog/free-seo-tools-2026/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Free SEO Tools -->
+  <url><loc>https://seo.textools.site/tools/</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://seo.textools.site/tools/serp-preview/</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/tools/keyword-density/</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/tools/word-counter/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/tools/sitemap-parser/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/tools/schema-generator/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/tools/page-size-analyzer/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://seo.textools.site/tools/alt-text-checker/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Landing Pages -->
+  <url><loc>https://seo.textools.site/best-free-seo-tools/</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+</urlset>

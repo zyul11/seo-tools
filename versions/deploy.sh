@@ -19,6 +19,55 @@ if [ -z "$SITE" ] || [ "$SITE" = "help" ]; then
   exit 1
 fi
 
+# ── Astro Blog Builder ──────────────────────────────────────
+# Each site can have an Astro project that generates blog/article content.
+# Define the mapping: site_name → astro_project_dir → target_dir_under_dev
+build_blog() {
+  local name="$1"
+  local dir="$2"
+
+  case "$name" in
+    seo.textools.site)
+      local astro_dir="/home/ubuntu/seo-articles-astro"
+      if [ -d "$astro_dir" ]; then
+        echo "  📝 $name: building Astro blog..."
+        (cd "$astro_dir" && npx astro build 2>&1 | sed 's/^/    /')
+        echo "  📋 $name: syncing blog to dev..."
+        rsync -a --delete "$astro_dir/dist/blog/" "$dir/versions/dev/blog/"
+        echo "  ✅ $name: blog synced"
+      fi
+      ;;
+    textools.site)
+      local astro_dir="/home/ubuntu/textools-articles-astro"
+      if [ -d "$astro_dir" ]; then
+        echo "  📝 $name: building Astro articles..."
+        (cd "$astro_dir" && npx astro build 2>&1 | sed 's/^/    /')
+        rsync -a --delete "$astro_dir/dist/articles/" "$dir/versions/dev/articles/"
+        echo "  ✅ $name: articles synced"
+      fi
+      ;;
+    ziweiapi.site)
+      local astro_dir="/home/ubuntu/ziwei-articles-astro"
+      if [ -d "$astro_dir" ]; then
+        echo "  📝 $name: building Astro articles..."
+        (cd "$astro_dir" && npx astro build 2>&1 | sed 's/^/    /')
+        echo "  📋 $name: syncing articles to dev..."
+        rsync -a --delete "$astro_dir/dist/articles/" "$dir/versions/dev/articles/"
+        echo "  ✅ $name: articles synced"
+      fi
+      ;;
+    game.ziweiapi.site)
+      local astro_dir="/home/ubuntu/game-articles-astro"
+      if [ -d "$astro_dir" ]; then
+        echo "  📝 $name: building Astro articles..."
+        (cd "$astro_dir" && npx astro build 2>&1 | sed 's/^/    /')
+        rsync -a --delete "$astro_dir/dist/articles/" "$dir/versions/dev/articles/"
+        echo "  ✅ $name: articles synced"
+      fi
+      ;;
+  esac
+}
+
 deploy_site() {
   local name="$1"
   local dir="$2"
@@ -28,6 +77,9 @@ deploy_site() {
     echo "  ⚠️  $name: no dev/ directory found, skipping"
     return
   fi
+
+  # Build Astro blog before deploying
+  build_blog "$name" "$dir"
 
   # Determine next version number
   local next_ver=1

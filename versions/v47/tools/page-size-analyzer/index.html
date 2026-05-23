@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Size Analyzer — Free Web Page Size & Weight Checker</title>
+<meta name="description" content="Free page size analyzer. Check the total size, HTML size, and estimated load time of any webpage. Understand your page weight and optimization opportunities.">
+<link rel="canonical" href="https://seo.textools.site/tools/page-size-analyzer/">
+<meta property="og:title" content="Page Size Analyzer — Free SEO Tool">
+<meta property="og:description" content="Analyze webpage size, HTML weight, and estimated load time. Understand your page weight breakdown.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Page Size Analyzer","description":"Analyze webpage size, HTML weight, and estimate load time. Free SEO tool for understanding page weight.","applicationCategory":"SEO Tool","operatingSystem":"Web"}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1e1e2e;--surface:#181825;--surface2:#313244;--text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;--blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;--border:#45475a;--radius:12px;--radius-sm:8px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}.nav .nav-active{color:#cdd6f4;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:24px;max-width:550px}
+.input-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px;text-align:center}
+.input-area p{font-size:13px;color:var(--subtext);margin-bottom:12px}
+.input-area textarea{width:100%;min-height:120px;background:#11111b;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text);font-size:12px;font-family:monospace;line-height:1.5;resize:vertical;outline:none;transition:border-color .2s}
+.input-area textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+.input-area textarea::placeholder{color:#585b70}
+.btn{padding:8px 20px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-top:10px}
+.btn-primary{background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b}.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:var(--surface2);color:var(--text)}.btn-secondary:hover{background:var(--border)}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px;display:none}
+.results-grid.show{display:grid}
+.result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;text-align:center}
+.result-card .num{font-size:28px;font-weight:800;margin-bottom:2px;line-height:1.2}
+.result-card .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.gauge-wrap{background:var(--surface2);border-radius:4px;height:8px;overflow:hidden;margin-top:8px}
+.gauge-fill{height:100%;border-radius:4px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.fill-green{background:var(--green)}.fill-yellow{background:var(--yellow)}.fill-red{background:var(--red)}
+.guidelines{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:none}
+.guidelines.show{display:block}
+.guidelines h3{font-size:13px;color:var(--yellow);margin-bottom:8px}
+.guidelines li{font-size:12px;color:var(--subtext);padding:4px 0;list-style:none;padding-left:16px;position:relative}
+.guidelines li::before{content:'•';position:absolute;left:4px;color:var(--blue)}
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none}
+@media(max-width:500px){.results-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+<div class="container">
+  <div class="page-top">
+    <div class="breadcrumb"><a href="/">Home</a> <span>›</span> <a href="/tools/">Free Tools</a> <span>›</span> <span>Page Size Analyzer</span></div>
+    <h1>📏 <span>Page Size Analyzer</span></h1>
+    <p class="subtitle">Paste the HTML source of any webpage to analyze its size, content ratio, and estimated load time. Understand how heavy your page is and where to optimize.</p>
+  </div>
+  <div class="input-area">
+    <p>Paste your page's HTML source code below to analyze its size and structure</p>
+    <textarea id="htmlInput" placeholder="Paste HTML source code here..."></textarea>
+    <div><button class="btn btn-primary" onclick="analyze()">📏 Analyze Size</button></div>
+  </div>
+  <div class="results-grid" id="resultsGrid">
+    <div class="result-card"><div class="num" id="rTotalKb" style="color:var(--blue)">0</div><div class="label">Total Size</div></div>
+    <div class="result-card"><div class="num" id="rHtmlKb" style="color:var(--mauve)">0</div><div class="label">HTML Size</div></div>
+    <div class="result-card"><div class="num" id="rTextKb" style="color:var(--green)">0</div><div class="label">Text Content</div></div>
+    <div class="result-card"><div class="num" id="rRatio" style="color:var(--yellow)">0%</div><div class="label">Code-to-Content</div></div>
+    <div class="result-card"><div class="num" id="rChars">0</div><div class="label">Characters</div></div>
+    <div class="result-card"><div class="num" id="rEstLoad" style="color:var(--green)">0s</div><div class="label">Est. Load (3G)</div></div>
+  </div>
+  <div class="guidelines" id="guidelines">
+    <h3>💡 Page Size Guidelines</h3>
+    <ul>
+      <li><strong>&lt; 100 KB</strong> → Excellent. Lightweight page loads fast on all connections.</li>
+      <li><strong>100-300 KB</strong> → Good. Standard page weight for most sites.</li>
+      <li><strong>300-500 KB</strong> → Fair. Consider trimming unused CSS/JS.</li>
+      <li><strong>500 KB - 1 MB</strong> → Heavy. Compress images, minify assets.</li>
+      <li><strong>&gt; 1 MB</strong> → Too heavy. Major optimization needed for good Core Web Vitals.</li>
+      <li>Keep code-to-content ratio under 50% for better SEO performance.</li>
+    </ul>
+  </div>
+</div>
+<div class="footer"><a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools.</div>
+<script>
+function analyze(){
+  const html=document.getElementById('htmlInput').value;
+  if(!html.trim()){alert('Paste some HTML first!');return}
+  const totalBytes=new Blob([html]).size;
+  const totalKb=(totalBytes/1024).toFixed(1);
+  const textOnly=html.replace(/<[^>]*>/g,'');
+  const textBytes=new Blob([textOnly]).size;
+  const textKb=(textBytes/1024).toFixed(1);
+  const htmlKb=(totalKb-textKb);
+  const ratio=totalBytes>0?((totalBytes-textBytes)/totalBytes*100).toFixed(1):0;
+  const chars=textOnly.replace(/\s+/g,' ').trim().length;
+  const loadTime=Math.max(0.3,(totalBytes/1024/50).toFixed(1));
+  document.getElementById('rTotalKb').textContent=totalKb+'KB';
+  document.getElementById('rTotalKb').style.color=totalKb<100?'var(--green)':totalKb<300?'var(--yellow)':'var(--red)';
+  document.getElementById('rHtmlKb').textContent=Math.max(0,htmlKb.toFixed(1))+'KB';
+  document.getElementById('rTextKb').textContent=textKb+'KB';
+  document.getElementById('rRatio').textContent=ratio+'%';
+  document.getElementById('rRatio').style.color=ratio<50?'var(--green)':ratio<70?'var(--yellow)':'var(--red)';
+  document.getElementById('rChars').textContent=chars.toLocaleString();
+  document.getElementById('rEstLoad').textContent=loadTime+'s';
+  document.getElementById('rEstLoad').style.color=loadTime<1?'var(--green)':loadTime<3?'var(--yellow)':'var(--red)';
+  document.getElementById('resultsGrid').classList.add('show');
+  document.getElementById('guidelines').classList.add('show');
+}
+</script>
+</body>
+</html>

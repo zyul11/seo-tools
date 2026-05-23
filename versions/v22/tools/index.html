@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free SEO Tools — Google SERP Preview, Keyword Density, and More</title>
+<meta name="description" content="Free online SEO tools: Google SERP preview, keyword density checker, and more. No registration required. All tools run in your browser.">
+<link rel="canonical" href="https://seo.textools.site/tools/">
+<link rel="stylesheet" href="/css/style.css">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Free SEO Tools",
+  "description": "A growing collection of free browser-based SEO tools for website owners and content creators.",
+  "url": "https://seo.textools.site/tools/"
+}
+</script>
+<style>
+/* ── Page Layout ── */
+.page-wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; flex: 1; width: 100%; }
+.page-title { padding: 40px 0 8px; }
+.page-title h1 { font-size: 30px; font-weight: 800; margin-bottom: 8px; }
+.page-title h1 span { background: linear-gradient(135deg,#89b4fa,#a6e3a1); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.page-title .sub { color: #7f849c; font-size: 14px; line-height: 1.6; max-width: 600px; }
+.count-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px; border-radius: 20px; background: rgba(137,180,250,.1); border: 1px solid rgba(137,180,250,.15); font-size: 12px; color: #89b4fa; margin-bottom: 16px; }
+
+/* ── Search / Filter ── */
+.tool-bar { display: flex; gap: 12px; align-items: center; margin: 24px 0; flex-wrap: wrap; }
+.search-box { flex: 1; min-width: 200px; position: relative; }
+.search-box input {
+  width: 100%; padding: 10px 14px 10px 38px; border-radius: 10px; border: 1px solid #313244;
+  background: #181825; color: #cdd6f4; font-size: 14px; outline: none; font-family: inherit;
+  transition: border-color .2s;
+}
+.search-box input:focus { border-color: #89b4fa; }
+.search-box input::placeholder { color: #585b70; }
+.search-box .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #585b70; font-size: 14px; pointer-events: none; }
+.filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-chip {
+  padding: 6px 14px; border-radius: 20px; border: 1px solid #313244;
+  background: transparent; color: #6c7086; font-size: 12px; cursor: pointer; font-family: inherit;
+  transition: all .2s;
+}
+.filter-chip:hover { border-color: #585b70; color: #a6adc8; }
+.filter-chip.active { background: rgba(137,180,250,.12); border-color: #89b4fa; color: #89b4fa; font-weight: 600; }
+
+/* ── Tool Cards Grid ── */
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; margin-top: 8px; }
+.tool-card {
+  display: flex; flex-direction: column;
+  background: rgba(24,24,37,.6); border: 1px solid #313244; border-radius: 14px;
+  padding: 24px; text-decoration: none; color: inherit;
+  transition: all .25s cubic-bezier(.4,0,.2,1); position: relative; overflow: hidden;
+}
+.tool-card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  background: linear-gradient(135deg, rgba(137,180,250,.04), rgba(166,227,161,.02));
+  transition: opacity .3s;
+}
+.tool-card:hover { border-color: #89b4fa; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(137,180,250,.08); }
+.tool-card:hover::before { opacity: 1; }
+.tool-card:active { transform: translateY(-1px); }
+
+.tool-card .card-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; position: relative; z-index: 1; }
+.tool-card .card-icon {
+  width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.tool-card .card-icon.blue { background: rgba(137,180,250,.12); }
+.tool-card .card-icon.green { background: rgba(166,227,161,.12); }
+.tool-card .card-icon.purple { background: rgba(203,166,247,.12); }
+.tool-card .card-icon.peach { background: rgba(250,179,135,.12); }
+
+.tool-card .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
+.tool-card .tag {
+  display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600;
+}
+.tool-card .tag-new { background: rgba(166,227,161,.15); color: #a6e3a1; }
+.tool-card .tag-popular { background: rgba(249,226,175,.15); color: #f9e2af; }
+.tool-card .tag-browser { background: rgba(137,180,250,.1); color: #89b4fa; }
+
+.tool-card .card-body { position: relative; z-index: 1; flex: 1; }
+.tool-card .card-title { font-size: 17px; font-weight: 700; color: #cdd6f4; margin-bottom: 6px; }
+.tool-card .card-desc { font-size: 13px; color: #6c7086; line-height: 1.55; }
+
+.tool-card .card-footer { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(137,180,250,.06); position: relative; z-index: 1; }
+.tool-card .card-meta { display: flex; align-items: center; gap: 12px; font-size: 11px; color: #585b70; }
+.tool-card .card-meta span { display: flex; align-items: center; gap: 4px; }
+
+/* ── Coming Soon ── */
+.coming-soon { opacity: .5; cursor: default; pointer-events: none; }
+.coming-soon::after {
+  content: 'Coming Soon'; position: absolute; top: 12px; right: 12px;
+  padding: 3px 10px; border-radius: 6px; background: rgba(137,180,250,.1);
+  color: #89b4fa; font-size: 10px; font-weight: 600; z-index: 2;
+}
+.coming-soon:hover { transform: none; box-shadow: none; border-color: #313244; }
+
+/* ── Empty State ── */
+.empty-state { display: none; text-align: center; padding: 60px 20px; color: #6c7086; }
+.empty-state.show { display: block; }
+.empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; }
+
+/* ── Loading skeleton ── */
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.skeleton { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+.skeleton-card { background: rgba(24,24,37,.6); border: 1px solid #313244; border-radius: 14px; padding: 24px; animation: pulse 1.5s ease-in-out infinite; }
+.skeleton-card .sk-icon { width: 44px; height: 44px; border-radius: 12px; background: #313244; margin-bottom: 14px; }
+.skeleton-card .sk-line { height: 14px; background: #313244; border-radius: 4px; margin-bottom: 8px; }
+.skeleton-card .sk-line:first-of-type { width: 70%; }
+.skeleton-card .sk-line:last-child { width: 40%; }
+
+/* ── Footer ── */
+.footer-wrap { text-align: center; padding: 24px; border-top: 1px solid rgba(137,180,250,.06); color: #585b70; font-size: 13px; }
+.footer-wrap a { color: #89b4fa; text-decoration: none; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .page-title h1 { font-size: 24px; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .tool-bar { flex-direction: column; }
+  .search-box { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/blog/">Blog</a>
+    <a href="/">Pricing</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <div class="page-title">
+    <div class="count-badge">🛠️ <span id="toolCount">7</span> tools & counting</div>
+    <h1>Free <span>SEO Tools</span></h1>
+    <p class="sub">A growing collection of free, browser-based SEO tools. No registration. No server uploads — everything runs locally in your browser.</p>
+  </div>
+
+  <div class="tool-bar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search tools..." oninput="filterTools()">
+    </div>
+    <div class="filter-group">
+      <button class="filter-chip active" data-filter="all" onclick="setFilter('all')">All</button>
+      <button class="filter-chip" data-filter="content" onclick="setFilter('content')">Content</button>
+      <button class="filter-chip" data-filter="technical" onclick="setFilter('technical')">Technical</button>
+      <button class="filter-chip" data-filter="research" onclick="setFilter('research')">Research</button>
+    </div>
+  </div>
+
+  <!-- Skeleton loader -->
+  <div class="skeleton" id="skeleton">
+    <div class="skeleton-card"><div class="sk-icon"></div><div class="sk-line"></div><div class="sk-line"></div><div class="sk-line"></div></div>
+    <div class="skeleton-card"><div class="sk-icon"></div><div class="sk-line"></div><div class="sk-line"></div><div class="sk-line"></div></div>
+  </div>
+
+  <div class="tools-grid" id="toolsGrid">
+    <!-- SERP Preview -->
+    <a href="/tools/serp-preview/" class="tool-card" data-category="research" data-name="Google SERP Preview">
+      <div class="card-top">
+        <div class="card-icon blue">🔎</div>
+        <div class="card-tags">
+          <span class="tag tag-popular">Popular</span>
+          <span class="tag tag-browser">Browser</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Google SERP Preview</div>
+        <div class="card-desc">See how your page title, URL, and meta description appear in Google search results. Desktop & mobile views with character count optimization guides.</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span>⚡ Real-time preview</span>
+          <span>📱 Mobile/Desktop</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Keyword Density -->
+    <a href="/tools/keyword-density/" class="tool-card" data-category="content" data-name="Keyword Density Checker">
+      <div class="card-top">
+        <div class="card-icon green">🔤</div>
+        <div class="card-tags">
+          <span class="tag tag-browser">Browser</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Keyword Density Checker</div>
+        <div class="card-desc">Analyze word frequency, keyword density percentages, and 2-word/3-word phrase distribution. Detects over-optimization and keyword stuffing.</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span>🔤 N-gram analysis</span>
+          <span>📊 Density charts</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Schema Generator -->
+    <a href="/tools/schema-generator/" class="tool-card" data-category="technical" data-name="Schema Markup Generator">
+      <div class="card-top">
+        <div class="card-icon purple">🏷️</div>
+        <div class="card-tags">
+          <span class="tag tag-new">New</span>
+          <span class="tag tag-browser">Browser</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Schema Markup Generator</div>
+        <div class="card-desc">Generate JSON-LD structured data for Article, LocalBusiness, FAQ, Product, and BreadcrumbList. Copy-paste ready code for your website.</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span>🏷️ 5 schema types</span>
+          <span>📋 One-click copy</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Word Counter -->
+    <a href="/tools/word-counter/" class="tool-card" data-category="content" data-name="Word Counter">
+      <div class="card-top">
+        <div class="card-icon green">🔢</div>
+        <div class="card-tags">
+          <span class="tag tag-new">New</span>
+          <span class="tag tag-browser">Browser</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Word Counter</div>
+        <div class="card-desc">Count words, characters, sentences, paragraphs, and estimate reading time. Real-time stats as you type. Perfect for content writers.</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span>⚡ Real-time</span>
+          <span>📊 6 metrics</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Sitemap Parser -->
+    <a href="/tools/sitemap-parser/" class="tool-card" data-category="technical" data-name="Sitemap Parser">
+      <div class="card-top">
+        <div class="card-icon blue">🗺️</div>
+        <div class="card-tags">
+          <span class="tag tag-new">New</span>
+          <span class="tag tag-browser">Browser</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Sitemap Parser</div>
+        <div class="card-desc">Paste any XML sitemap to extract all URLs with priority, change frequency, and last modified dates. Supports sitemap indexes.</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span>🗺️ URL extractor</span>
+          <span>📊 Summary stats</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Page Size Analyzer -->
+    <a href="/tools/page-size-analyzer/" class="tool-card" data-category="technical" data-name="Page Size Analyzer">
+      <div class="card-top">
+        <div class="card-icon peach">📏</div>
+        <div class="card-tags">
+          <span class="tag tag-new">New</span>
+          <span class="tag tag-browser">Browser</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Page Size Analyzer</div>
+        <div class="card-desc">Analyze HTML size, text-to-code ratio, and estimated 3G load time. Understand page weight and get optimization targets.</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span>📏 Size breakdown</span>
+          <span>⚡ Load estimate</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Alt Text Checker -->
+    <a href="/tools/alt-text-checker/" class="tool-card" data-category="content" data-name="Alt Text Checker">
+      <div class="card-top">
+        <div class="card-icon purple">🖼️</div>
+        <div class="card-tags">
+          <span class="tag tag-new">New</span>
+          <span class="tag tag-browser">Browser</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Image Alt Text Checker</div>
+        <div class="card-desc">Find all img tags in your HTML. Detect missing alt attributes, empty alts, and well-described images. Improve accessibility and SEO.</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-meta">
+          <span>🖼️ All images scanned</span>
+          <span>📋 Status per image</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="icon">🔍</div>
+    <p>No tools found matching your search. Try a different keyword.</p>
+  </div>
+</div>
+
+<div class="footer-wrap">
+  <a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools for website owners and content creators.
+</div>
+
+<script>
+// Simulate loading
+setTimeout(() => {
+  document.getElementById('skeleton').style.display = 'none';
+  document.getElementById('toolsGrid').style.display = 'grid';
+}, 400);
+
+let currentFilter = 'all';
+
+function setFilter(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.filter === filter));
+  filterTools();
+}
+
+function filterTools() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const cards = document.querySelectorAll('.tool-card');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const name = (card.dataset.name || '').toLowerCase();
+    const cat = card.dataset.category || '';
+    const matchSearch = !query || name.includes(query);
+    const matchFilter = currentFilter === 'all' || cat === currentFilter;
+    const show = matchSearch && matchFilter;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  document.getElementById('emptyState').classList.toggle('show', visible === 0);
+}
+</script>
+</body>
+</html>

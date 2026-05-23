@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter — Free Online Word & Character Count Tool</title>
+<meta name="description" content="Free online word counter and character count tool. Count words, characters, paragraphs, sentences, and estimate reading time. No registration needed.">
+<link rel="canonical" href="https://seo.textools.site/tools/word-counter/">
+<meta property="og:title" content="Word Counter — Free Online Tool">
+<meta property="og:description" content="Count words, characters, sentences, paragraphs, and reading time. Fast, free, works in-browser.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Word Counter","description":"Free online word counter with character count, paragraph count, sentence count, and reading time estimation.","applicationCategory":"SEO Tool","operatingSystem":"Web"}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1e1e2e;--surface:#181825;--surface2:#313244;--text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;--blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;--border:#45475a;--radius:12px;--radius-sm:8px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}
+.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}
+.nav .nav-active{color:#cdd6f4;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:24px;max-width:500px}
+.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 8px;text-align:center}
+.stat-card .num{font-size:22px;font-weight:800;color:var(--blue);line-height:1.2}
+.stat-card .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
+textarea{width:100%;min-height:280px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;color:var(--text);font-size:14px;font-family:inherit;line-height:1.7;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+textarea::placeholder{color:#585b70}
+.actions{display:flex;gap:10px;margin-top:10px;align-items:center}
+.btn{padding:8px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:var(--surface2);color:var(--text)}
+.btn-secondary:hover{background:var(--border)}
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+<div class="container">
+  <div class="page-top">
+    <div class="breadcrumb"><a href="/">Home</a> <span>›</span> <a href="/tools/">Free Tools</a> <span>›</span> <span>Word Counter</span></div>
+    <h1>🔢 <span>Word Counter</span></h1>
+    <p class="subtitle">Paste or type any text below. Count words, characters, sentences, paragraphs, and estimated reading time in real-time.</p>
+  </div>
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="num" id="statWords">0</div><div class="label">Words</div></div>
+    <div class="stat-card"><div class="num" id="statChars">0</div><div class="label">Characters</div></div>
+    <div class="stat-card"><div class="num" id="statCharsNoSpace">0</div><div class="label">Chars (no space)</div></div>
+    <div class="stat-card"><div class="num" id="statSentences">0</div><div class="label">Sentences</div></div>
+    <div class="stat-card"><div class="num" id="statParagraphs">0</div><div class="label">Paragraphs</div></div>
+    <div class="stat-card"><div class="num" id="statReadTime">0m</div><div class="label">Reading Time</div></div>
+  </div>
+  <textarea id="textInput" placeholder="Paste or type your content here..." oninput="updateCounts()"></textarea>
+  <div class="actions">
+    <button class="btn btn-secondary" onclick="clearText()">Clear</button>
+    <span style="font-size:11px;color:var(--muted);margin-left:auto">All processing happens in your browser. Nothing is sent to a server.</span>
+  </div>
+</div>
+<div class="footer"><a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools.</div>
+<script>
+function $(id){return document.getElementById(id)}
+function updateCounts(){
+  const t=$('textInput').value;
+  const words=t.trim()?t.trim().split(/\s+/).length:0;
+  const chars=t.length;
+  const noSpace=t.replace(/\s/g,'').length;
+  const sentences=t.trim()?t.split(/[.!?]+/).filter(s=>s.trim().length>0).length:0;
+  const paragraphs=t.trim()?t.split(/\n\s*\n/).filter(p=>p.trim().length>0).length:Math.max(t.split('\n').filter(l=>l.trim()).length,0);
+  const wpm=200;const readMins=Math.ceil(words/wpm);
+  $('statWords').textContent=words.toLocaleString();
+  $('statChars').textContent=chars.toLocaleString();
+  $('statCharsNoSpace').textContent=noSpace.toLocaleString();
+  $('statSentences').textContent=sentences;
+  $('statParagraphs').textContent=paragraphs;
+  $('statReadTime').textContent=readMins+'m';
+}
+function clearText(){$('textInput').value='';updateCounts()}
+</script>
+</body>
+</html>

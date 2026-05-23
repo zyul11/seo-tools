@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<title>SEO Audit Tool — Self-Evolving Website Analysis System</title>
+<meta name="description" content="Self-evolving SEO audit tool that improves its detection rules every week. Free website analysis across 20+ checkpoints with actionable fix solutions.">
+<link rel="canonical" href="https://seo.textools.site/">
+<link rel="alternate" hreflang="en" href="https://seo.textools.site/">
+<link rel="alternate" hreflang="x-default" href="https://seo.textools.site/">
+<meta property="og:title" content="SEO Audit Tool — Self-Evolving SEO Analysis System">
+<meta property="og:description" content="A self-evolving SEO audit system. Each week our detection engine learns new rules from Google Search Central, web.dev, and best practices. Get a complete analysis with actionable fixes.">
+<meta property="og:url" content="https://seo.textools.site/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://seo.textools.site/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SEO Audit Tool — Self-Evolving SEO Analysis System">
+<meta name="twitter:description" content="A self-evolving SEO audit system. Weekly rule updates from Google official sources.">
+<meta name="twitter:image" content="https://seo.textools.site/og-image.svg">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SEO Audit Tool",
+  "description": "Self-evolving SEO analysis system. Weekly rule updates from Google Search Central and web.dev. 20+ SEO checkpoints with automated fix generation.",
+  "applicationCategory": "SEO Tool",
+  "operatingSystem": "Web",
+  "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "price": "9.9", "priceCurrency": "USD"}, {"@type": "Offer", "price": "29.9", "priceCurrency": "USD"}, {"@type": "Offer", "price": "199", "priceCurrency": "USD"}]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What kind of websites can I audit?", "acceptedAnswer": {"@type": "Answer", "text": "Any publicly accessible website. Landing pages, blogs, e-commerce, SaaS, tools — all work."}},
+    {"@type": "Question", "name": "What does 'self-evolving' mean?", "acceptedAnswer": {"@type": "Answer", "text": "Our detection engine automatically updates its rules every week. We monitor Google Search Central, web.dev, and official best practice sources — when Google announces a new policy or recommendation, our engine learns it before most SEO tools catch up."}},
+    {"@type": "Question", "name": "How is this different from PageSpeed Insights?", "acceptedAnswer": {"@type": "Answer", "text": "PageSpeed only checks speed. We check 24+ factors including meta tags, headings, structured data, images, links, content quality, social tags, spam policies, and more. Plus we generate actionable fix code."}},
+    {"@type": "Question", "name": "What does the subscription include?", "acceptedAnswer": {"@type": "Answer", "text": "After your initial report, we scan your website weekly and deliver fresh reports to your email. You get a score trend, new issues detected, and updated fix recommendations. Android/iOS not required."}},
+    {"@type": "Question", "name": "Can I share my audit score?", "acceptedAnswer": {"@type": "Answer", "text": "Yes! After running a free audit, you can share your SEO score badge on social media, forums, or your website. Each share sends a referral link — when someone audits their site through it, you earn free scan credits."}},
+    {"@type": "Question", "name": "Can I get a refund?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. If the report doesn't meet your expectations, contact us within 7 days for a full refund."}}
+  ]
+}
+</script>
+<link rel="stylesheet" href="/css/style.css?v=51">
+<style>
+/* ── Base layout (override style.css) ── */
+body{overflow-x:hidden}
+*{box-sizing:border-box}
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;width:100%;max-width:960px;margin:0 auto}
+.price-card{display:flex;flex-direction:column;background:rgba(24,24,37,.95);border:1px solid rgba(137,180,250,.12);border-radius:14px;padding:22px;min-width:0;width:100%;max-width:100%}
+.sub-card{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+
+/* ── Modal (inline, not in style.css) ── */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:200;display:none}
+.modal-overlay.show{display:block}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#1e1e2e;border:1px solid rgba(137,180,250,.15);border-radius:14px;padding:18px;max-width:300px;width:80%;z-index:201}
+
+/* ── Mobile fixes (override style.css) ── */
+@media(max-width:640px){.sub-card{flex-direction:column!important;text-align:center!important;padding:16px!important;gap:12px!important;width:100%!important}.price-card{padding:16px!important}}
+@media(max-width:520px){.price-grid{grid-template-columns:1fr!important;width:100%!important}}
+@media(max-width:640px){.nav{flex-wrap:wrap!important;gap:8px!important}.nav>div{display:flex!important;flex-wrap:wrap!important;gap:4px!important;justify-content:center!important}.nav a{font-size:11px!important;margin-left:8px!important}}
+
+/* ── Button styles (inline to bypass cache) ── */
+.btn{font-family:inherit;cursor:pointer;border:none}
+.btn.green,.price-card .btn.green{background:linear-gradient(135deg,#a6e3a1,#94e2d5);color:#11111b;font-weight:700;border-radius:8px;border:none}
+.btn.primary,.price-card .btn.primary{background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b;font-weight:700;border-radius:8px;border:none}
+.price-card .btn{display:block;width:100%;text-align:center;padding:11px 10px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.3px;border:none}
+.btn.green:hover,.price-card .btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QB3Z7T5CG1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QB3Z7T5CG1');
+</script>
+</head>
+<body>
+<noscript>
+  <div style="padding:40px;text-align:center;background:#1e1e2e;color:#cdd6f4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+    <div style="font-size:48px;margin-bottom:16px">🔍</div>
+    <h1 style="font-size:24px;margin-bottom:12px;color:#cdd6f4">SEO Audit Tool</h1>
+    <p style="color:#7f849c;max-width:400px;margin-bottom:20px">This tool requires JavaScript to run the SEO analysis engine. Please enable JavaScript in your browser settings and reload the page.</p>
+    <a href="https://seo.textools.site/" style="color:#89b4fa;text-decoration:underline">Reload →</a>
+  </div>
+</noscript>
+
+<!-- Nav -->
+<div class="nav" id="siteNav">
+  <a href="https://seo.textools.site/" class="logo">🔍 <span data-i18n="nav.logo">SEO</span> Audit</a>
+  <div>
+    <a href="https://textools.site" data-i18n="nav.textools">Text Tools</a>
+    <a href="/blog/" data-i18n="nav.blog">Blog</a>
+    <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="/faq/" data-i18n="nav.faq">FAQ</a>
+    <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    <button class="lang-btn" data-lang="zh" onclick="switchLang('zh')">中文</button>
+    <button class="nav-login" id="navLoginBtn" onclick="showLoginModal()" style="display:inline-flex">🔑 Login</button>
+    <button class="nav-login nav-user" id="navUserBtn" onclick="showUserMenu()" style="display:none">👤 Dashboard</button>
+  </div>
+</div>
+
+<!-- Dashboard (shown when key is logged in) -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-welcome">👋 Welcome back, <strong id="dashKeyName">🔑</strong></div>
+  <div class="dash-balance" id="dashBalance">— <small>scans remaining</small></div>
+  <div class="dash-meta" id="dashMeta"></div>
+  <div class="dash-actions">
+    <button class="dash-btn" onclick="dashBuyMore()">📊 Buy More Scans</button>
+    <button class="dash-btn" onclick="dashRefresh()">🔄 Refresh Balance</button>
+    <button class="dash-btn logout" onclick="dashLogout()">🚪 Logout</button>
+  </div>
+  <div style="max-width:520px;margin:16px auto 0" id="dashScanRow">
+    <form class="input-group" id="dashAuditForm" onsubmit="dashRunAudit(event);return false" style="margin-top:8px">
+      <input type="url" id="dashUrlInput" placeholder="https://yoursite.com">
+      <button type="submit">Analyze →</button>
+    </form>
+    <div style="font-size:10px;color:#45475a;margin-top:4px">💡 Tip: You can also paste multiple URLs (one per line) for a batch scan</div>
+  </div>
+  <div id="dashExtra" style="max-width:520px;margin:12px auto 0;font-size:11px;color:#585b70"></div>
+</div>
+
+<!-- Tool Page -->
+<div class="tool-page show" id="toolPage">
+
+<!-- Hero -->
+<div class="hero" id="dashHero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="badge" data-i18n="hero.badge">· Weekly Updated</div>
+      <h1 data-i18n="hero.h1">Stay Visible in the Age of AI</h1>
+      <p class="sub" data-i18n="hero.sub">24-Point SEO Audit + AI Visibility Analysis — Rules update every Wednesday from Google Search Central.</p>
+      <form class="input-group" id="auditForm" onsubmit="return runAudit(event)">
+        <input type="url" id="urlInput" placeholder="https://yoursite.com" autocomplete="url">
+        <button type="submit" data-i18n="hero.cta">Scan Free →</button>
+      </form>
+      <div class="trust" data-i18n="hero.trust">⚡ 10-30s scan · Free basic report · No signup</div>
+      <div style="margin-top:10px;font-size:11px;color:#45475a" data-i18n="hero.login">Already have a key? <a href="javascript:void(0)" onclick="showLoginModal()" style="color:#585b70;text-decoration:underline;text-underline-offset:3px" data-i18n="hero.login.link">Login here</a></div>
+      <div style="margin-top:8px">
+        <form class="input-group" id="heroKeyForm" onsubmit="return quickKeyLogin(event)" style="max-width:360px;margin:0 auto;gap:4px">
+          <input type="text" id="heroKeyInput" placeholder="seo_xxxxxxxxxxxxxxxx" style="flex:1;padding:6px 10px;border-radius:6px;border:1px solid rgba(137,180,250,.15);background:rgba(24,24,37,.8);color:#cdd6f4;font-size:11px;outline:none;font-family:monospace;text-align:center;letter-spacing:.5px">
+          <button type="submit" data-i18n="hero.key_btn" style="padding:6px 14px;border-radius:6px;border:none;background:linear-gradient(135deg,#a6e3a1,#94e2d5);color:#11111b;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">🔑 登录</button>
+        </form>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <div class="hero-ring">
+            <div class="hero-ring-inner">
+              <span class="hero-ring-num">78</span>
+              <span class="hero-ring-label">SCORE</span>
+            </div>
+          </div>
+          <div class="hero-card-meta">
+            <div class="hero-card-title" data-i18n="hero.mockup.title">SEO Audit: example.com</div>
+            <div class="hero-card-tags">
+              <span class="tag-red" data-i18n="hero.mockup.critical">2 Critical</span>
+              <span class="tag-yellow" data-i18n="hero.mockup.warning">3 Warning</span>
+              <span class="tag-green" data-i18n="hero.mockup.pass">2 Pass</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-issues">
+          <div class="hero-issue hero-issue-red" data-i18n="hero.mockup.issue1"><span class="issue-icon">❌</span> Title tag missing or too short</div>
+          <div class="hero-issue hero-issue-yellow" data-i18n="hero.mockup.issue2"><span class="issue-icon">⚠️</span> Meta description length suboptimal</div>
+          <div class="hero-issue hero-issue-blue" data-i18n="hero.mockup.issue3"><span class="issue-icon">💡</span> H1 tag present but could improve</div>
+        </div>
+        <div class="hero-locked" data-i18n="hero.mockup.locked">🔒
+      </div>
+      <div class="hero-ai-badge">
+        <span data-i18n="hero.ai">🤖 AI Visibility: Moderate</span>
+        <span class="hero-dot"></span>
+        <span data-i18n="hero.ai.score">65/100</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sample Report Preview -->
+<div class="sample-report" id="dashSampleReport" style="margin:30px auto;max-width:820px;text-align:center">
+  <h3 style="font-size:16px;color:#cdd6f4;margin-bottom:4px" data-i18n="sample.title">This Is What Your Professional SEO Report Looks Like</h3>
+  <p style="font-size:11px;color:#585b70;margin-bottom:20px" data-i18n="sample.desc">Free scan gives you an overall score, Top 3 issues, and AI Visibility rating.<br>Upgrade to unlock the full 24-point audit, priority ranking, traffic impact estimates, and fix templates.</p>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+    <!-- Card 1: Score Ring + Issues -->
+    <div style="flex:1;min-width:260px;max-width:400px;background:rgba(24,24,37,.95);border:1px solid rgba(137,180,250,.12);border-radius:14px;padding:22px;text-align:left;box-shadow:0 4px 20px rgba(0,0,0,.2)">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
+        <div style="width:80px;height:80px;border-radius:50%;background:conic-gradient(#a6e3a1 0deg 230deg,#313244 230deg 360deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative">
+          <div style="width:62px;height:62px;border-radius:50%;background:rgba(24,24,37,.95);display:flex;align-items:center;justify-content:center;flex-direction:column">
+            <span style="color:#a6e3a1;font-size:22px;font-weight:800;line-height:1">78</span>
+            <span style="color:#585b70;font-size:8px;letter-spacing:1px" data-i18n="sample.report.score_label">SCORE</span>
+          </div>
+        </div>
+        <div>
+          <div style="color:#cdd6f4;font-size:14px;font-weight:600;margin-bottom:4px" data-i18n="sample.report.title">SEO Audit: example.com</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap">
+            <span style="background:rgba(243,139,168,.15);color:#f38ba8;font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600" data-i18n="sample.report.critical">🔴 2 Critical</span>
+            <span style="background:rgba(249,226,175,.15);color:#f9e2af;font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600" data-i18n="sample.report.warning">🟡 3 Warning</span>
+            <span style="background:rgba(166,227,161,.15);color:#a6e3a1;font-size:9px;padding:2px 8px;border-radius:4px;font-weight:600" data-i18n="sample.report.pass">🟢 2 Pass</span>
+          </div>
+        </div>
+      </div>
+      <!-- Issue previews -->
+      <div style="margin:8px 0 0;padding:8px 10px;background:rgba(243,139,168,.08);border-left:3px solid #f38ba8;border-radius:0 6px 6px 0;font-size:11px;color:#cdd6f4" data-i18n="sample.report.issue1">
+        <span style="color:#f38ba8;font-weight:600">❌</span> Title tag missing or too short
+      </div>
+      <div style="margin:4px 0 0;padding:8px 10px;background:rgba(249,226,175,.08);border-left:3px solid #f9e2af;border-radius:0 6px 6px 0;font-size:11px;color:#cdd6f4" data-i18n="sample.report.issue2">
+        <span style="color:#f9e2af;font-weight:600">⚠️</span> Meta description length suboptimal
+      </div>
+      <div style="margin:4px 0 0;padding:8px 10px;background:rgba(137,180,250,.08);border-left:3px solid #89b4fa;border-radius:0 6px 6px 0;font-size:11px;color:#cdd6f4" data-i18n="sample.report.issue3">
+        <span style="color:#89b4fa">💡</span> H1 tag present but could be more descriptive
+      </div>
+      <!-- Locked issues indicator -->
+      <div style="margin-top:10px;padding:10px;background:rgba(24,24,37,.6);border:1px dashed rgba(137,180,250,.15);border-radius:8px;text-align:center" data-i18n="sample.report.locked">
+        <span style="color:#585b70;font-size:10px">🔒 <strong>4 more issues hidden</strong> · Unlock for fix templates + priority scores</span>
+      </div>
+    </div>
+    <!-- Card 2: AI Visibility -->
+    <div style="flex:1;min-width:260px;max-width:400px;background:rgba(24,24,37,.95);border:1px solid rgba(137,180,250,.12);border-radius:14px;padding:22px;text-align:left;box-shadow:0 4px 20px rgba(0,0,0,.2)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <span style="font-size:32px">🤖</span>
+        <div>
+          <div style="color:#cdd6f4;font-size:14px;font-weight:600" data-i18n="sample.vis.title">AI Visibility (GEO)</div>
+          <div style="font-size:10px;color:#585b70" data-i18n="sample.vis.sub">How AI search engines see your content</div>
+        </div>
+      </div>
+      <!-- Score indicator -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span class="ai-vis-score" style="font-size:11px" data-i18n="sample.vis.level">Moderate</span>
+        <span style="font-size:10px;color:#585b70" data-i18n="sample.vis.score">65/100 — needs improvement</span>
+      </div>
+      <div style="background:rgba(166,227,161,.08);border:1px solid rgba(166,227,161,.15);border-radius:8px;padding:10px;font-size:10px;color:#a6e3a1;margin-bottom:8px" data-i18n="sample.vis.detected">
+        ✅ Google Analytics detected — AI bot traffic being tracked
+      </div>
+      <div style="margin-top:8px;background:rgba(137,180,250,.06);border-radius:8px;padding:10px;font-size:10px;color:#585b70" data-i18n="sample.vis.citations">
+        🧬 <strong>AI Citations</strong> — <span style="color:#f9e2af">🔒 Unlock with Pro Pack</span> to see which AI platforms reference your content
+      </div>
+      <!-- CTA -->
+      <div style="margin-top:14px;text-align:center">
+        <button onclick="document.getElementById('urlInput').focus();return false" style="padding:10px 22px;border-radius:8px;border:none;background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s" data-i18n="sample.cta">🔍 Scan Your Site for Free</button>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:14px;font-size:11px;color:#585b70" data-i18n="sample.footer">
+    ⚡ · <a href="#pricing" style="color:#89b4fa;text-decoration:none;font-weight:600">Unlock full report →</a>
+  </div>
+</div>
+
+
+<!-- Self-Evolving Banner -->
+<div class="evolve-banner">
+  <div class="evolve-icon">🧬</div>
+  <h3 data-i18n="evolve.title">🧬 Self-Evolving Engine: Always One Step Ahead</h3>
+  <p data-i18n="evolve.desc">While most tools update quarterly, we update weekly. We monitor Google Search Central, web.dev, and AI search updates. Every Wednesday, your next scan reflects the latest rules — not a static checklist from months ago. Fresh insights, every time.</p>
+  <div class="rule-tags">
+    <span data-i18n="evolve.rule1">4 Core Rules</span>
+    <span data-i18n="evolve.rule2">13 High Priority</span>
+    <span data-i18n="evolve.rule3">6 Medium Priority</span>
+    <span class="new" data-i18n="evolve.new1">✨ Google Back Button Policy (Apr 2026)</span>
+    <span class="new" data-i18n="evolve.new2">✨ Core Web Vitals Updates</span>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-item"><h3 id="statSites">0</h3><p data-i18n="stat.sites">Sites Analyzed</p></div>
+  <div class="stat-item"><h3 id="statIssues">0</h3><p data-i18n="stat.issues">Issues Found</p></div>
+  <div class="stat-item"><h3 id="statFixes">0</h3><p data-i18n="stat.fixes">Fixes Generated</p></div>
+</div>
+
+<button class="show-more-btn" id="showMoreBtn" onclick="toggleDetails()">Show more details <span class="arrow">↓</span></button>
+<div class="folded" id="foldedDetails">
+
+<!-- What We Check -->
+<div class="checks" id="checks">
+  <h2 data-i18n="checks.title">📋 24-Point Detection Matrix</h2>
+  <p class="sub" data-i18n="checks.sub">Weekly updates from Google Search Central, web.dev, and verified best practices</p>
+  <div class="check-grid container">
+    <div class="check-item"><div class="icon">🏷️</div><h4 data-i18n="checks.item1">Title & Meta</h4></div>
+    <div class="check-item"><div class="icon">📐</div><h4 data-i18n="checks.item2">Heading Structure</h4></div>
+    <div class="check-item"><div class="icon">🔗</div><h4 data-i18n="checks.item3">Link Structure</h4></div>
+    <div class="check-item"><div class="icon">🖼️</div><h4 data-i18n="checks.item4">Image Alt Text</h4></div>
+    <div class="check-item"><div class="icon">📊</div><h4 data-i18n="checks.item5">Structured Data</h4></div>
+    <div class="check-item"><div class="icon">📱</div><h4 data-i18n="checks.item6">Mobile Readiness</h4></div>
+    <div class="check-item"><div class="icon">📰</div><h4 data-i18n="checks.item7">OG & Social Tags</h4></div>
+    <div class="check-item"><div class="icon">📝</div><h4 data-i18n="checks.item8">Content Quality</h4></div>
+    <div class="check-item"><div class="icon">🗺️</div><h4 data-i18n="checks.item9">SEO Foundation</h4></div>
+    <div class="check-item"><div class="icon">🔐</div><h4 data-i18n="checks.item10">Security</h4></div>
+    <div class="check-item"><div class="icon">🧭</div><h4 data-i18n="checks.item11">Navigation</h4></div>
+    <div class="check-item"><div class="icon">🚫</div><h4 data-i18n="checks.item12">Spam Policies</h4></div>
+  </div>
+</div>
+
+<!-- How It Works – Animated Flow -->
+<div class="how" style="text-align:center">
+  <h2 data-i18n="how.title">⚙️ How the Self-Evolving System Works</h2>
+
+  <div class="evolve-flow">
+    <!-- Stage 1: Sources -->
+    <div class="flow-stage">
+      <div class="flow-icon-wrap pulse-slow">
+        <span class="flow-icon">📡</span>
+      </div>
+      <div class="flow-label" data-i18n="flow.source.title">Google & AI Sources</div>
+      <div class="flow-sublabel" data-i18n="flow.source.desc">Search Central · web.dev · AI Updates</div>
+      <div class="flow-tags">
+        <span class="flow-tag" style="animation-delay:0s">Core Web Vitals</span>
+        <span class="flow-tag" style="animation-delay:0.4s">Helpful Content</span>
+        <span class="flow-tag" style="animation-delay:0.8s">AI Visibility</span>
+      </div>
+    </div>
+
+    <!-- Connecting arrow with animated dots -->
+    <div class="flow-connector">
+      <div class="flow-line"></div>
+      <div class="flow-dot dot1"></div>
+      <div class="flow-dot dot2"></div>
+      <div class="flow-dot dot3"></div>
+    </div>
+
+    <!-- Stage 2: Engine -->
+    <div class="flow-stage">
+      <div class="flow-icon-wrap rotate-glow">
+        <span class="flow-icon">🧬</span>
+      </div>
+      <div class="flow-label" data-i18n="flow.engine.title">Self-Evolving Engine</div>
+      <div class="flow-sublabel" data-i18n="flow.engine.desc">Every Wednesday · Auto-Update</div>
+      <div class="flow-stats" id="flowStats">
+        <div class="flow-stat">
+          <span class="flow-stat-num" id="flowRuleCount">4</span>
+          <span class="flow-stat-label" data-i18n="flow.stat.rules">Core Rules</span>
+        </div>
+        <div class="flow-stat">
+          <span class="flow-stat-num">13</span>
+          <span class="flow-stat-label" data-i18n="flow.stat.high">High Priority</span>
+        </div>
+        <div class="flow-stat">
+          <span class="flow-stat-num">6</span>
+          <span class="flow-stat-label" data-i18n="flow.stat.medium">Medium Priority</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Connecting arrow -->
+    <div class="flow-connector">
+      <div class="flow-line"></div>
+      <div class="flow-dot dot1"></div>
+      <div class="flow-dot dot2"></div>
+      <div class="flow-dot dot3"></div>
+    </div>
+
+    <!-- Stage 3: Output -->
+    <div class="flow-stage">
+      <div class="flow-icon-wrap pulse-fast">
+        <span class="flow-icon">✅</span>
+      </div>
+      <div class="flow-label" data-i18n="flow.output.title">Updated Scan Rules</div>
+      <div class="flow-sublabel" data-i18n="flow.output.desc">24 Points · Real-Time Detection</div>
+      <div class="flow-check-list" id="flowCheckList">
+        <div class="flow-check-item" style="animation-delay:0s">Title & Meta</div>
+        <div class="flow-check-item" style="animation-delay:0.2s">Heading Structure</div>
+        <div class="flow-check-item" style="animation-delay:0.4s">Core Web Vitals</div>
+        <div class="flow-check-item" style="animation-delay:0.6s">AI Visibility</div>
+        <div class="flow-check-item" style="animation-delay:0.8s">+20 more...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ── Evolve Flow Animation ── */
+.evolve-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 30px auto;
+  max-width: 820px;
+  flex-wrap: wrap;
+}
+.flow-stage {
+  flex: 1;
+  min-width: 180px;
+  max-width: 240px;
+  background: rgba(24,24,37,.9);
+  border: 1px solid rgba(137,180,250,.12);
+  border-radius: 14px;
+  padding: 20px 14px;
+  text-align: center;
+  transition: all .3s;
+}
+.flow-stage:hover {
+  border-color: rgba(137,180,250,.35);
+  box-shadow: 0 0 20px rgba(137,180,250,.08);
+  transform: translateY(-2px);
+}
+.flow-icon-wrap {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 10px;
+  background: rgba(137,180,250,.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(137,180,250,.15);
+}
+.flow-icon { font-size: 26px; line-height:1 }
+.flow-label { font-size: 13px; font-weight: 700; color: #cdd6f4; margin-bottom: 3px }
+.flow-sublabel { font-size: 10px; color: #585b70; margin-bottom: 10px }
+.flow-tags { display: flex; flex-direction: column; gap: 4px }
+.flow-tag {
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(137,180,250,.08);
+  color: #89b4fa;
+  animation: fadeSlideIn .5s ease-out both;
+}
+.flow-connector {
+  position: relative;
+  width: 28px;
+  min-width: 28px;
+  height: 100px;
+}
+.flow-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(137,180,250,.2), rgba(137,180,250,.5), rgba(137,180,250,.2));
+  transform: translateY(-50%);
+}
+.flow-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #89b4fa;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: dotFlow 2s ease-in-out infinite;
+}
+.dot1 { left: -2px; animation-delay: 0s; }
+.dot2 { left: 50%; margin-left: -2.5px; animation-delay: 0.7s; }
+.dot3 { right: -2px; animation-delay: 1.4s; }
+@keyframes dotFlow {
+  0%, 100% { opacity: 0.2; transform: translateY(-50%) scale(0.8); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+}
+.flow-stats { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap }
+.flow-stat { text-align: center }
+.flow-stat-num {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  color: #a6e3a1;
+  line-height: 1.2;
+}
+.flow-stat-label { font-size: 8px; color: #585b70; display: block }
+.flow-check-list { display: flex; flex-direction: column; gap: 3px }
+.flow-check-item {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(166,227,161,.08);
+  color: #a6e3a1;
+  animation: fadeSlideIn .4s ease-out both;
+}
+/* Animations */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.pulse-slow { animation: pulseGlow 3s ease-in-out infinite }
+.pulse-fast { animation: pulseGlow 2s ease-in-out infinite }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(137,180,250,.1); }
+  50% { box-shadow: 0 0 14px 4px rgba(137,180,250,.15); }
+}
+.rotate-glow {
+  animation: rotateGlow 4s ease-in-out infinite;
+}
+@keyframes rotateGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(166,227,161,.1); transform: rotate(0deg); }
+  25% { box-shadow: 0 0 14px 4px rgba(166,227,161,.15); transform: rotate(5deg); }
+  75% { box-shadow: 0 0 14px 4px rgba(166,227,161,.15); transform: rotate(-5deg); }
+}
+/* Rule counter cycling */
+@keyframes ruleCycle {
+  0%, 20% { content: "4"; }
+  25%, 45% { content: "7"; }
+  50%, 70% { content: "11"; }
+  75%, 100% { content: "4"; }
+}
+/* Mobile */
+@media (max-width: 660px) {
+  .evolve-flow { flex-direction: column; gap: 4px }
+  .flow-connector { width: 100%; height: 14px; min-width: unset }
+  .flow-line { top: 50%; left: 50%; width: 2px; height: 100%; transform: translate(-50%, -50%); background: linear-gradient(180deg, rgba(137,180,250,.2), rgba(137,180,250,.5), rgba(137,180,250,.2)); }
+  .flow-dot { top: auto; left: 50% !important; right: auto !important; transform: translateX(-50%); }
+  .dot1 { top: -2px; }
+  .dot2 { top: 50%; margin-top: -2.5px; }
+  .dot3 { bottom: -2px; top: auto; }
+}
+</style>
+
+<script>
+(function(){
+  // Cycle the core rule count every 4s
+  const el = document.getElementById('flowRuleCount');
+  if (el) {
+    const vals = [4, 7, 11, 15, 4];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % vals.length;
+      el.textContent = vals[i];
+    }, 3000);
+  }
+})();
+</script>
+
+</div> <!-- /foldedDetails -->
+
+<!-- Pricing -->
+  <h2 id="pricing" data-i18n="pricing.title" style="padding-top:50px;border-top:1px solid rgba(137,180,250,.06);font-size:18px;text-align:center;margin-bottom:4px;color:#cdd6f4">Choose Your SEO Evolution Plan <span class="limited-badge" data-i18n="pricing.badge">🕐 Launch Special</span></h2>
+  <p class="sub" data-i18n="pricing.sub" style="font-size:12px;text-align:center;color:#585b70;margin-bottom:28px">Weekly auto-updates · AI Visibility (GEO) included · Lock in the lowest rates</p>
+  <div id="countdownTimer" style="text-align:center;margin-bottom:24px;font-size:13px;color:#f38ba8">
+    <span style="color:#f9e2af;font-weight:700" data-i18n="pricing.countdown">⚡ Launch special expires in:</span>
+    <span id="countdownDisplay" style="font-family:monospace;font-size:18px;font-weight:700;color:#f38ba8;margin-left:8px">--</span>
+  </div>
+  <div class="price-grid">
+
+    <!-- Free -->
+    <div class="price-card">
+      <div class="tier-header">
+        <span class="tier-icon">🆓</span>
+        <span class="tier-name" data-i18n="pricing.free.name">Free Scan</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit" data-i18n="pricing.free.benefit1"><span class="tag green">Score</span>Overall SEO score + Top 3 issues</div>
+        <div class="benefit" data-i18n="pricing.free.benefit2"><span class="tag gold">Detect</span>24-point live detection + AI Visibility score</div>
+        <div class="benefit nope" data-i18n="pricing.free.benefit3">Full 24 issues report</div>
+        <div class="benefit nope" data-i18n="pricing.free.benefit4">Fix code templates</div>
+        <div class="benefit nope" data-i18n="pricing.free.benefit5">Priority-sorted issues</div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="free">$0</span></div>
+        <button class="btn secondary" onclick="document.getElementById('urlInput').focus();return false" data-i18n="pricing.free.cta">Scan Your Site Free →</button>
+      </div>
+    </div>
+
+    <!-- Starter Pack -->
+    <div class="price-card tier-starter">
+      <span class="limited-tag" data-i18n="pricing.launch_tag">🎉 Launch Special</span>
+      <div class="tier-header">
+        <span class="tier-icon">📊</span>
+        <span class="tier-name" data-i18n="pricing.starter.name">Starter Pack</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit" data-i18n="pricing.starter.benefit1"><span class="tag green">Full Audit</span>Complete 24-point SEO audit per scan</div>
+        <div class="benefit" data-i18n="pricing.starter.benefit2"><span class="tag blue">Fixes</span>Copy-paste fix templates per issue</div>
+        <div class="benefit" data-i18n="pricing.starter.benefit3"><span class="tag gold">Download</span>PDF report export</div>
+        <div class="benefit" data-i18n="pricing.starter.benefit4"><span class="tag blue">📬</span>5 scans — any URL, any time</div>
+        <div class="benefit nope" data-i18n="pricing.starter.benefit5">Optimized HTML output</div>
+        <div class="benefit nope" data-i18n="pricing.starter.benefit6">Weekly push monitoring</div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="old-price">$19</span>$14.9 <span class="save-tag" data-i18n="pricing.save22">Save 22%</span></div>
+        <button class="btn primary" id="subscribeStarter" onclick="openSubscribe('starter')" style="cursor:pointer" data-i18n="pricing.starter.cta">Get Starter Pack</button>
+      </div>
+    </div>
+
+    <!-- Growth Pack ★ BEST VALUE -->
+    <div class="price-card tier-growth">
+      <div class="badge-popular" data-i18n="pricing.badge_popular">🔥 Best Value for Most Users</div>
+      <span class="limited-tag" data-i18n="pricing.launch_tag">🎉 Launch Special</span>
+      <div class="tier-header">
+        <span class="tier-icon">🔧</span>
+        <span class="tier-name" data-i18n="pricing.growth.name">Growth Pack</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit" data-i18n="pricing.growth.benefit1"><span class="tag green">Full Audit</span>Complete 24-point SEO audit per scan + AI Visibility deep analysis</div>
+        <div class="benefit" data-i18n="pricing.growth.benefit2"><span class="tag blue">📬 Weekly Reports</span> <strong data-i18n="pricing.growth.benefit3">25 scans</strong> — register URLs for automated weekly push + email delivery<small data-i18n="pricing.growth.benefit2_small">We scan your sites every week and email you fresh reports + score trend</small></div>
+        <div class="benefit" data-i18n="pricing.growth.benefit3b"><span class="tag gold">📈 Score Trend</span>Compare this week vs last — track your SEO improvement over time</div>
+        <div class="benefit" data-i18n="pricing.growth.benefit4"><span class="tag blue">🎯</span>AI Visibility (GEO) detailed analysis + optimization tips</div>
+        <div class="benefit" data-i18n="pricing.growth.benefit5"><span class="tag green">📄 PDF Export</span>Full audit reports with historical trend data — share with your team</div>
+        <div class="benefit nope" data-i18n="pricing.growth.benefit6">150 scans</div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="old-price">$69</span>$49 <span class="save-tag" data-i18n="pricing.save29">Save 29%</span> <small data-i18n="pricing.onetime">/one-time</small></div>
+        <button class="btn green" id="subscribeGrowth" onclick="openSubscribe('growth')" style="cursor:pointer" data-i18n="pricing.growth.cta">🚀 Get Growth Pack →</button>
+    </div>
+    <div class="urgency-line" data-i18n="pricing.growth.urgency"><span class="pulse">⚡</span>
+    </div>
+  </div>
+
+    <!-- Pro Pack -->
+    <div class="price-card tier-pro">
+      <span class="limited-tag" data-i18n="pricing.launch_tag">🎉 Launch Special</span>
+      <div class="tier-header">
+        <span class="tier-icon">🏆</span>
+        <span class="tier-name" data-i18n="pricing.pro.name">Pro Pack</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit" data-i18n="pricing.pro.benefit1"><span class="tag green">All Growth Benefits</span> Full audit · optimized HTML · fixes · PDF</div>
+        <div class="benefit" data-i18n="pricing.pro.benefit2_full"><span class="tag gold">📬</span> <strong>150 scans</strong> — register unlimited URLs for weekly push<small>Scan multiple sites every week for ~3 years. Best value.</small></div>
+        <div class="benefit" data-i18n="pricing.pro.benefit3"><span class="tag blue">📈</span>📈 Score trend dashboard — watch SEO improve</div>
+        <div class="benefit" data-i18n="pricing.pro.benefit4"><span class="tag green">🔔</span>🔔 Priority alerts when Google releases new rules affecting your sites<small data-i18n="pricing.pro.benefit4_small">Our engine detects impact before your rankings drop</small></div>
+        <div class="benefit" data-i18n="pricing.pro.benefit5"><span class="tag gold">🎁</span> 🆕 Every future feature included — no extra cost<small data-i18n="pricing.pro.benefit5_small">AI Visibility · GEO insights · whatever we build next</small></div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="old-price">$199</span>$149 <span class="save-tag" data-i18n="pricing.save25">Save 25%</span> <small data-i18n="pricing.onetime">/one-time</small></div>
+        <button class="btn primary" id="subscribePro" onclick="openSubscribe('pro')" style="cursor:pointer" data-i18n="pricing.pro.cta">Get Pro Pack</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Weekly Subscription -->
+  <div class="sub-card" style="max-width:900px;margin:20px auto 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(137,180,250,.06),rgba(166,227,161,.06));border:1px solid rgba(137,180,250,.15);border-radius:14px;padding:20px 24px;justify-content:space-between">
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:32px">📬</div>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#cdd6f4" data-i18n="pricing.weekly.name">Weekly Subscription</div>
+        <div style="font-size:11px;color:#585b70;margin-top:2px" data-i18n="pricing.weekly.desc">Weekly monitoring with email reports</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <span class="tag" style="background:rgba(137,180,250,.12);color:#89b4fa;font-size:11px;padding:3px 10px;border-radius:6px" data-i18n="pricing.weekly.tag1">Auto-scan every week</span>
+      <span class="tag" style="background:rgba(166,227,161,.12);color:#a6e3a1;font-size:11px;padding:3px 10px;border-radius:6px" data-i18n="pricing.weekly.tag2">Email report delivery</span>
+      <span class="tag" style="background:rgba(249,226,175,.12);color:#f9e2af;font-size:11px;padding:3px 10px;border-radius:6px" data-i18n="pricing.weekly.tag3">Cancel any time</span>
+    </div>
+
+    <div class="sub-card-cta" style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <div style="text-align:center">
+        <div style="font-size:24px;font-weight:800;color:#a6e3a1">$9.9</div>
+        <div style="font-size:10px;color:#585b70">/month · USDT TRC-20</div>
+      </div>
+      <button class="btn green" onclick="openSubscribe('monthly')" style="cursor:pointer;padding:10px 20px;font-size:13px;white-space:nowrap" data-i18n="pricing.weekly.cta">Subscribe →</button>
+    </div>
+
+  </div>
+
+<p class="limited-notice" data-i18n="pricing.notice">🕐 These are launch prices. Regular pricing applies once we hit our first 100 paid users. Lock in the lowest rate while you can.</p>
+
+
+      </div>
+    </div>
+
+<!-- Why Choose textools SEO? -->
+<div class="value-props">
+  <h2 data-i18n="value.title">🧬 Why a Self-Evolving SEO Tool?</h2>
+  <p class="sub" data-i18n="value.sub">Static checklists go stale. Every Wednesday our engine updates — your audits always reflect the latest landscape.</p>
+  <div class="value-grid">
+    <div class="value-item">
+      <div class="icon">🧬</div>
+      <h4 data-i18n="value.card1.title">Self-Evolving Weekly Updates</h4>
+      <p data-i18n="value.card1.desc">Google and AI rules change fast. Our engine updates every Wednesday so your audits are always current.</p>
+    </div>
+    <div class="value-item">
+      <div class="icon">🤖</div>
+      <h4 data-i18n="value.card2.title">AI Visibility (GEO) Expertise</h4>
+      <p data-i18n="value.card2.desc">We go beyond traditional SEO to analyze how visible your content is to ChatGPT, Perplexity, Gemini and other AI engines.</p>
+    </div>
+    <div class="value-item">
+      <div class="icon">🎯</div>
+      <h4 data-i18n="value.card3.title">Actionable Insights</h4>
+      <p data-i18n="value.card3.desc">Every issue comes with estimated traffic impact + ready-to-use fix templates.</p>
+    </div>
+  </div>
+</div>
+<div class="growth">
+  <h2 data-i18n="growth.title">🔄 The Growth Flywheel</h2>
+  <div class="growth-grid">
+    <div class="growth-item">
+      <div class="icon">🏷️</div>
+      <h4 data-i18n="growth.card1.title">Share Your Score</h4>
+<p data-i18n="growth.card1.desc">
+    </div>
+    <div class="growth-item">
+      <div class="icon">🔗</div>
+      <h4 data-i18n="growth.card2.title">Refer & Earn</h4>
+<p data-i18n="growth.card2.desc">
+    </div>
+    <div class="growth-item">
+      <div class="icon">🧬</div>
+      <h4 data-i18n="growth.card3.title">Network Effect</h4>
+      <p data-i18n="growth.card3.desc">
+    </div>
+  </div>
+</div>
+
+</div>
+
+</div> <!-- /tool-page -->
+
+<!-- Results Page -->
+<div class="results-page container" id="resultsPage">
+<div id="resultsContent"></div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <a href="https://textools.site/">Text Tools</a> · <a href="https://textools.site/privacy.html">Privacy</a> · <a href="https://textools.site/terms.html">Terms</a> · <a href="https://seo.textools.site/">SEO Audit</a>
+  <br><span data-i18n="footer.slogan">🧬 2026 · Rules updated weekly</span>
+</div>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<!-- Subscribe Modal -->
+<div class="modal-overlay" id="subscribeModal">
+  <div class="modal">
+    <button class="btn-close" onclick="closeSubscribe()">✕</button>
+    <div id="subscribeContent"></div>
+  </div>
+</div>
+
+<!-- Results Modal -->
+<div class="modal-overlay" id="resultsModal">
+  <div class="modal results-modal" id="resultsModalInner">
+    <button class="btn-close" onclick="closeResultsModal()">✕</button>
+    <div id="resultsModalContent"></div>
+  </div>
+</div>
+
+<!-- Key Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal login-modal">
+    <button class="btn-close" onclick="closeLoginModal()">✕</button>
+    <h3 data-i18n="modal.login.title">🔑 Key Login</h3>
+    <div class="sub" data-i18n="modal.login.sub">Paste your seo_ key to access paid features</div>
+    <input type="text" id="loginKeyInput" placeholder="seo_xxxxxxxxxxxxxxxx" style="width:100%;padding:10px 14px;border-radius:8px;border:1px solid rgba(137,180,250,.2);background:rgba(24,24,37,.8);color:#cdd6f4;font-size:14px;outline:none;font-family:monospace;box-sizing:border-box;text-align:center;letter-spacing:1px" oninput="onLoginKeyInput()">
+    <div class="status-msg" id="loginStatus"></div>
+    <button class="btn-submit" id="loginSubmitBtn" onclick="processKeyLogin()" data-i18n="modal.login.btn">🔑 Login</button>
+    <div class="detail" style="margin-top:10px" data-i18n="modal.login.no_key">💡 Don't have a key? <a href="#pricing" onclick="closeLoginModal();" style="color:#89b4fa;text-decoration:none">Buy a pack</a> — key delivered via email instantly.</div>
+    <div class="detail" data-i18n="modal.login.support">📧 Need us to resend your key? <a href="mailto:87549153@qq.com?subject=Resend%20SEO%20Key" style="color:#585b70">Contact support</a></div>
+  </div>
+</div>
+
+<!-- USDT Payment Modal -->
+
+<script src="/js/i18n.js?v=53"></script>
+<script src="/js/app.js?v=56"></script>
+<script>
+// 🔐 Auto-login from stored key on page load
+autoInitKey();
+// 🎯 Init show-more button text for current language
+(function(){
+  var btn = document.getElementById('showMoreBtn');
+  if (btn && typeof t === 'function') {
+    btn.innerHTML = t('footer.showMore') + ' <span class="arrow">↓</span>';
+  }
+})();
+
+// ⏱ Countdown timer: 14 days from today
+(function() {
+  var end = new Date();
+  end.setDate(end.getDate() + 14);
+  function tick() {
+    var now = new Date();
+    var diff = end - now;
+    if (diff <= 0) { document.getElementById('countdownDisplay').textContent = 'Expired'; return; }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('countdownDisplay').textContent =
+      d + 'd ' + ('0'+h).slice(-2) + 'h ' + ('0'+m).slice(-2) + 'm ' + ('0'+s).slice(-2) + 's';
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;flex-direction:column;color:#cdd6f4">
+  <div style="width:40px;height:40px;border:3px solid rgba(137,180,250,.2);border-top-color:#89b4fa;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:16px"></div>
+  <div style="font-size:14px">Analyzing your website...</div>
+</div>
+
+</body>
+</html>

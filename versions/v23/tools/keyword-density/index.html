@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keyword Density Checker — Free SEO Content Analysis Tool</title>
+<meta name="description" content="Free online keyword density checker. Analyze word frequency, keyword density percentage, and 2-word/3-word phrase distribution. Detect keyword stuffing instantly.">
+<link rel="canonical" href="https://seo.textools.site/tools/keyword-density/">
+<meta property="og:title" content="Keyword Density Checker — Free SEO Content Analysis">
+<meta property="og:description" content="Analyze keyword density and word frequency in any text. Detects over-optimization with 2-word and 3-word phrase analysis.">
+<meta property="og:url" content="https://seo.textools.site/tools/keyword-density/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Keyword Density Checker">
+<meta name="twitter:description" content="Free keyword density analysis tool. Check word frequency, 2-word/3-word phrases, and density percentages.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Keyword Density Checker",
+  "description": "Free online tool to analyze keyword density, word frequency, and n-gram distribution in any text content for SEO optimization.",
+  "applicationCategory": "SEO Tool",
+  "operatingSystem": "Web"
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1e1e2e;--surface:#181825;--surface2:#313244;
+  --text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;
+  --blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;--peach:#fab387;--mauve:#cba6f7;
+  --border:#45475a;--radius:12px;--radius-sm:8px
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Nav ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}
+.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}
+.nav .nav-active{color:#cdd6f4;font-weight:600}
+
+/* ── Page ── */
+.container{max-width:1000px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none;transition:opacity .2s}
+.breadcrumb a:hover{opacity:.8}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:28px;max-width:640px}
+
+/* ── Input ── */
+.input-section{margin-bottom:24px}
+.input-section textarea{
+  width:100%;min-height:200px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;color:var(--text);font-size:14px;font-family:inherit;
+  line-height:1.7;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s
+}
+.input-section textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+.input-section textarea::placeholder{color:#585b70}
+
+.input-actions{display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.btn{
+  padding:10px 22px;border-radius:8px;border:none;font-size:13px;
+  font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit
+}
+.btn-primary{background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:var(--surface2);color:var(--text)}
+.btn-secondary:hover{background:var(--border)}
+.input-stats{font-size:12px;color:var(--muted);margin-left:auto}
+
+/* ── Results ── */
+.results{display:none;animation:fadeUp .35s ease-out}
+.results.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.section-title{font-size:17px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--text)}
+
+/* ── Summary cards ── */
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:600px){.summary-grid{grid-template-columns:repeat(2,1fr)}}
+.summary-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px;text-align:center;transition:border-color .2s
+}
+.summary-card:hover{border-color:var(--muted)}
+.summary-card .num{font-size:26px;font-weight:800;margin-bottom:2px;line-height:1.2}
+.summary-card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.num-warning{color:var(--yellow)}
+.num-danger{color:var(--red)}
+.num-good{color:var(--green)}
+.num-info{color:var(--blue)}
+.num-mauve{color:var(--mauve)}
+
+/* ── Warning banner ── */
+.warning-banner{
+  background:rgba(243,139,168,.08);border:1px solid rgba(243,139,168,.25);
+  border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;
+  display:none;align-items:flex-start;gap:12px
+}
+.warning-banner.show{display:flex}
+.warning-banner .icon{font-size:22px;flex-shrink:0;margin-top:1px}
+.warning-banner .content{font-size:13px;color:var(--subtext);line-height:1.6}
+.warning-banner .content strong{color:var(--text)}
+
+/* ── Tabs ── */
+.tabs{display:flex;gap:2px;margin-bottom:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px;width:fit-content}
+.tab-btn{
+  padding:7px 16px;border-radius:6px;border:none;background:transparent;
+  color:var(--muted);font-size:13px;cursor:pointer;transition:all .2s;font-family:inherit;font-weight:500
+}
+.tab-btn:hover{color:var(--subtext)}
+.tab-btn.active{color:var(--text);background:var(--surface2)}
+.tab-content{display:none;margin-top:12px}
+.tab-content.active{display:block}
+
+/* ── Table ── */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 14px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);background:rgba(24,24,37,.5);font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+td{padding:9px 14px;border-bottom:1px solid rgba(69,71,90,.3)}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:rgba(24,24,37,.3)}
+tr:hover td{background:rgba(137,180,250,.04)}
+.keyword-col{color:var(--text);font-weight:600;font-size:13px}
+.density-bar{height:6px;border-radius:3px;background:var(--surface2);overflow:hidden}
+.density-bar-fill{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.fill-green{background:var(--green)}
+.fill-yellow{background:var(--yellow)}
+.fill-red{background:var(--red)}
+
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;white-space:nowrap}
+.tag-natural{background:rgba(166,227,161,.12);color:var(--green)}
+.tag-stuffed{background:rgba(243,139,168,.12);color:var(--red)}
+.tag-ok{background:rgba(249,226,175,.12);color:var(--yellow)}
+
+/* ── Footer ── */
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none;transition:opacity .2s}
+.footer a:hover{opacity:.8}
+
+/* ── Share ── */
+.share-section{margin-top:28px;text-align:center;display:none}
+.share-section.show{display:block}
+.share-section p{font-size:13px;color:var(--subtext);margin-bottom:10px}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;font-size:12px;text-decoration:none;color:#fff;transition:opacity .2s,transform .15s}
+.share-btn:hover{opacity:.85;transform:translateY(-1px)}
+.share-twitter{background:#1da1f2}
+.share-linkedin{background:#0a66c2}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-top">
+    <div class="breadcrumb">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/tools/">Free Tools</a> <span>›</span>
+      <span>Keyword Density Checker</span>
+    </div>
+    <h1>🔤 <span>Keyword Density Checker</span></h1>
+    <p class="subtitle">Paste your content below to analyze keyword frequency, density percentages, and n-gram distribution. Free tool — no registration needed. All analysis runs in your browser; nothing is sent to a server.</p>
+  </div>
+
+  <div class="input-section">
+    <textarea id="contentInput" placeholder="Paste your article, blog post, or webpage content here...">Keyword density checker is an essential SEO tool for content writers and website owners. A keyword density checker helps you find the perfect balance between SEO optimization and natural readability. Using a keyword density checker before publishing ensures your content ranks well without keyword stuffing penalties from Google. Content writers rely on keyword density checkers to optimize their articles, while SEO professionals use density checkers to audit existing content. The best keyword density checkers provide detailed word frequency analysis, showing you exactly how often each keyword appears in your text. Whether you are a beginner or an expert SEO professional, a keyword density checker will improve your content strategy and help you create better-optimized web pages that rank higher in search results.</textarea>
+    <div class="input-actions">
+      <button class="btn btn-primary" onclick="analyze()">🔍 Analyze</button>
+      <button class="btn btn-secondary" onclick="clearText()">Clear</button>
+      <span class="input-stats" id="inputStats">0 words</span>
+    </div>
+  </div>
+
+  <div class="results" id="results">
+    <!-- Summary -->
+    <div class="summary-grid" id="summaryGrid">
+      <div class="summary-card"><div class="num num-info" id="totalWords">0</div><div class="label">Total Words</div></div>
+      <div class="summary-card"><div class="num num-info" id="uniqueWords">0</div><div class="label">Unique Words</div></div>
+      <div class="summary-card"><div class="num" id="topDensity">0%</div><div class="label">Top Keyword Density</div></div>
+      <div class="summary-card"><div class="num" id="readability">—</div><div class="label">Readability</div></div>
+    </div>
+
+    <!-- Warning -->
+    <div class="warning-banner" id="warningBanner">
+      <span class="icon">⚠️</span>
+      <div class="content" id="warningText"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="section-title">📊 Keyword Analysis</div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="single" onclick="switchTab('single')">Single Words</button>
+      <button class="tab-btn" data-tab="bigram" onclick="switchTab('bigram')">2-Word Phrases</button>
+      <button class="tab-btn" data-tab="trigram" onclick="switchTab('trigram')">3-Word Phrases</button>
+    </div>
+
+    <div class="tab-content active" id="tabSingle">
+      <div class="table-wrap"><table><thead><tr><th>Rank</th><th>Keyword</th><th>Count</th><th>Density</th><th>Status</th><th>Distribution</th></tr></thead><tbody id="singleBody"></tbody></table></div>
+    </div>
+    <div class="tab-content" id="tabBigram">
+      <div class="table-wrap"><table><thead><tr><th>Rank</th><th>2-Word Phrase</th><th>Count</th><th>Density</th><th>Distribution</th></tr></thead><tbody id="bigramBody"></tbody></table></div>
+    </div>
+    <div class="tab-content" id="tabTrigram">
+      <div class="table-wrap"><table><thead><tr><th>Rank</th><th>3-Word Phrase</th><th>Count</th><th>Density</th><th>Distribution</th></tr></thead><tbody id="trigramBody"></tbody></table></div>
+    </div>
+
+    <div class="share-section" id="shareSection">
+      <p>📣 Found this useful? Share with your team!</p>
+      <div class="share-btns">
+        <a class="share-btn share-twitter" href="https://twitter.com/intent/tweet?text=Free%20Keyword%20Density%20Checker%20-%20analyze%20your%20content%20for%20SEO&url=https://seo.textools.site/tools/keyword-density/" target="_blank" rel="noopener">𝕏 Twitter</a>
+        <a class="share-btn share-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://seo.textools.site/tools/keyword-density/&title=Keyword%20Density%20Checker" target="_blank" rel="noopener">in LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools for website owners and content creators.
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let currentTab = 'single';
+
+function analyze() {
+  const text = $('contentInput').value.trim();
+  if (!text) { alert('Please paste some content to analyze.'); return; }
+
+  const words = text.toLowerCase().replace(/[^a-z0-9\s'-]/g, '').split(/\s+/).filter(w => w.length > 0);
+  const total = words.length;
+  $('totalWords').textContent = total.toLocaleString();
+
+  const freq = {};
+  words.forEach(w => { freq[w] = (freq[w]||0) + 1; });
+  const sorted = Object.entries(freq).sort((a,b) => b[1]-a[1]);
+  $('uniqueWords').textContent = sorted.length;
+
+  const bigrams = {};
+  for (let i = 0; i < words.length - 1; i++) { const p = words[i] + ' ' + words[i+1]; bigrams[p] = (bigrams[p]||0) + 1; }
+  const sortedBigrams = Object.entries(bigrams).sort((a,b) => b[1]-a[1]);
+
+  const trigrams = {};
+  for (let i = 0; i < words.length - 2; i++) { const p = words[i] + ' ' + words[i+1] + ' ' + words[i+2]; trigrams[p] = (trigrams[p]||0) + 1; }
+  const sortedTrigrams = Object.entries(trigrams).sort((a,b) => b[1]-a[1]);
+
+  // Top density
+  const topDensity = total > 0 ? ((sorted[0][1] / total) * 100).toFixed(1) : 0;
+  $('topDensity').textContent = topDensity + '%';
+  $('topDensity').className = 'num ' + (topDensity > 3 ? 'num-danger' : topDensity > 2 ? 'num-warning' : 'num-good');
+
+  // Readability
+  const avgWL = words.reduce((s,w) => s + w.length, 0) / total;
+  let rLabel = 'Normal', rColor = 'num-good';
+  if (avgWL > 6) { rLabel = 'Complex'; rColor = 'num-warning'; }
+  else if (avgWL < 4) { rLabel = 'Simple'; rColor = 'num-good'; }
+  $('readability').textContent = rLabel;
+  $('readability').className = 'num ' + rColor;
+
+  // Warning
+  const b = $('warningBanner'), wt = $('warningText');
+  const topPct = (sorted[0][1] / total * 100);
+  let warnings = [];
+  if (topPct > 3) {
+    warnings.push(`<strong>Potential keyword stuffing detected.</strong> Your top keyword "<strong>${sorted[0][0]}</strong>" appears ${sorted[0][1]} times (${topPct.toFixed(1)}% density). Google may see this as over-optimization. Consider reducing usage to under 3%.`);
+  } else if (topPct < 0.5 && total > 100) {
+    warnings.push(`<strong>Low keyword density.</strong> Your top keyword only appears ${topPct.toFixed(1)}% of the time. For SEO, consider using your target keyword 1-3% of total words.`);
+  }
+  if (warnings.length) { b.classList.add('show'); wt.innerHTML = warnings.join('<br><br>'); }
+  else { b.classList.remove('show'); }
+
+  fillTable('singleBody', sorted, total, 'single');
+  fillTable('bigramBody', sortedBigrams, total, 'bigram');
+  fillTable('trigramBody', sortedTrigrams, total, 'trigram');
+
+  $('results').classList.add('show');
+  $('shareSection').classList.add('show');
+  updateInputStats();
+}
+
+function fillTable(tbodyId, data, total, type) {
+  const top = data.slice(0, 50);
+  $(tbodyId).innerHTML = top.map(([word, count], i) => {
+    const pct = total > 0 ? (count / total * 100) : 0;
+    const density = pct.toFixed(2);
+    const barClass = pct > 3 ? 'fill-red' : pct > 1.5 ? 'fill-yellow' : 'fill-green';
+    const barWidth = Math.min(pct * 10, 100);
+    let tag = '', sc = '';
+    if (type === 'single') {
+      if (pct > 3) { tag = '<span class="tag tag-stuffed">Overused</span>'; sc = 'num-danger'; }
+      else if (pct > 2) { tag = '<span class="tag tag-ok">Frequent</span>'; sc = 'num-warning'; }
+      else { tag = '<span class="tag tag-natural">Natural</span>'; sc = 'num-good'; }
+    }
+    return `<tr>
+      <td style="color:var(--muted);font-size:11px">${i+1}</td>
+      <td class="keyword-col">${escHtml(word)}</td>
+      <td>${count}</td>
+      <td style="color:var(--${sc||'muted'})">${density}%</td>
+      ${type === 'single' ? `<td>${tag}</td>` : ''}
+      <td style="width:120px"><div class="density-bar"><div class="density-bar-fill ${barClass}" style="width:${barWidth}%"></div></div></td>
+    </tr>`;
+  }).join('');
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab'+tab.charAt(0).toUpperCase()+tab.slice(1)));
+}
+
+function clearText() {
+  $('contentInput').value = '';
+  $('results').classList.remove('show');
+  $('shareSection').classList.remove('show');
+  updateInputStats();
+}
+
+function updateInputStats() {
+  const text = $('contentInput').value.trim();
+  const words = text ? text.replace(/[^a-z0-9\s'-]/gi, '').split(/\s+/).filter(w => w.length > 0).length : 0;
+  $('inputStats').textContent = words.toLocaleString() + ' words';
+}
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+$('contentInput').addEventListener('input', updateInputStats);
+updateInputStats();
+</script>
+</body>
+</html>

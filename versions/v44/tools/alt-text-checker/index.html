@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Alt Text Checker — Free SEO Image Analysis Tool</title>
+<meta name="description" content="Free image alt text checker. Paste HTML to analyze all image tags, check for missing alt attributes, and get optimization recommendations for better accessibility and SEO.">
+<link rel="canonical" href="https://seo.textools.site/tools/alt-text-checker/">
+<meta property="og:title" content="Image Alt Text Checker — Free SEO Tool">
+<meta property="og:description" content="Check all image alt tags in your HTML. Find missing alt attributes, empty alts, and get optimization tips for better accessibility and SEO rankings.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Image Alt Text Checker","description":"Analyze HTML for image alt text. Find missing and empty alt attributes on img tags. Get accessibility and SEO recommendations.","applicationCategory":"SEO Tool","operatingSystem":"Web"}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1e1e2e;--surface:#181825;--surface2:#313244;--text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;--blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;--border:#45475a;--radius:12px;--radius-sm:8px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}.nav .nav-active{color:#cdd6f4;font-weight:600}
+.container{max-width:900px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:24px;max-width:580px}
+textarea{width:100%;min-height:200px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;color:var(--text);font-size:13px;font-family:monospace;line-height:1.5;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+textarea::placeholder{color:#585b70}
+.actions{display:flex;gap:10px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.btn{padding:8px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b}.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:var(--surface2);color:var(--text)}.btn-secondary:hover{background:var(--border)}
+.summary{display:none;gap:12px;grid-template-columns:repeat(4,1fr);margin:16px 0}
+.summary.show{display:grid}
+@media(max-width:500px){.summary{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;text-align:center}
+.stat-card .num{font-size:22px;font-weight:800;line-height:1.2}.stat-card .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:2px}
+.results{display:none;margin-top:12px}
+.results.show{display:block}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:8px 12px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);background:rgba(24,24,37,.5);font-size:10px;text-transform:uppercase}
+td{padding:7px 12px;border-bottom:1px solid rgba(69,71,90,.3);word-break:break-all}
+tr:nth-child(even) td{background:rgba(24,24,37,.3)}tr:hover td{background:rgba(137,180,250,.04)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.badge-ok{background:rgba(166,227,161,.12);color:var(--green)}
+.badge-missing{background:rgba(243,139,168,.12);color:var(--red)}
+.badge-empty{background:rgba(249,226,175,.12);color:var(--yellow)}
+.tips{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-top:16px;display:none}
+.tips.show{display:block}
+.tips h3{font-size:13px;color:var(--yellow);margin-bottom:8px}
+.tips li{font-size:12px;color:var(--subtext);padding:3px 0;list-style:none;padding-left:16px;position:relative}
+.tips li::before{content:'•';position:absolute;left:4px;color:var(--blue)}
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+<div class="container">
+  <div class="page-top">
+    <div class="breadcrumb"><a href="/">Home</a> <span>›</span> <a href="/tools/">Free Tools</a> <span>›</span> <span>Alt Text Checker</span></div>
+    <h1>🖼️ <span>Image Alt Text Checker</span></h1>
+    <p class="subtitle">Paste your page's HTML to find all image tags and check their alt attributes. Missing or empty alt text hurts accessibility and SEO — this tool helps you catch every one.</p>
+  </div>
+  <textarea id="htmlInput" placeholder="Paste HTML source here...&#10;&#10;Example:&#10;&lt;img src=&quot;logo.png&quot; alt=&quot;Company Logo&quot;&gt;&#10;&lt;img src=&quot;photo.jpg&quot;&gt;&#10;&lt;img src=&quot;icon.svg&quot; alt=&quot;&quot;&gt;"></textarea>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="checkAltText()">🔍 Check Images</button>
+    <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
+    <button class="btn btn-secondary" onclick="loadSample()">Load Sample</button>
+    <span style="font-size:11px;color:var(--muted);margin-left:auto">All analysis runs in-browser</span>
+  </div>
+  <div class="summary" id="summary">
+    <div class="stat-card"><div class="num" id="sTotal" style="color:var(--blue)">0</div><div class="label">Total Images</div></div>
+    <div class="stat-card"><div class="num" id="sOk" style="color:var(--green)">0</div><div class="label">With Alt Text</div></div>
+    <div class="stat-card"><div class="num" id="sMissing" style="color:var(--red)">0</div><div class="label">Missing Alt</div></div>
+    <div class="stat-card"><div class="num" id="sEmpty" style="color:var(--yellow)">0</div><div class="label">Empty Alt</div></div>
+  </div>
+  <div class="results" id="results">
+    <div class="table-wrap"><table><thead><tr><th>#</th><th>Image Source</th><th>Alt Text</th><th>Status</th></tr></thead><tbody id="tableBody"></tbody></table></div>
+  </div>
+  <div class="tips" id="tips">
+    <h3>💡 Alt Text Best Practices</h3>
+    <ul>
+      <li>Describe the image content accurately — don't just stuff keywords</li>
+      <li>Keep alt text under 125 characters (screen readers cut off after that)</li>
+      <li>Decorative images should use <code>alt=""</code> (empty) — not missing</li>
+      <li>Include relevant keywords naturally when they fit the image description</li>
+      <li>Every <code>&lt;img&gt;</code> must have an alt attribute for WCAG compliance</li>
+    </ul>
+  </div>
+</div>
+<div class="footer"><a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools.</div>
+<script>
+function $(id){return document.getElementById(id)}
+function checkAltText(){
+  const html=$('htmlInput').value;
+  if(!html.trim()){alert('Paste some HTML first!');return}
+  const imgRegex=/<img[^>]*>/gi;
+  const imgs=html.match(imgRegex)||[];
+  let total=0,ok=0,missing=0,empty=0;
+  const rows=[];
+  imgs.forEach((tag,i)=>{
+    total++;
+    const srcMatch=tag.match(/src\s*=\s*["']([^"']*)["']/i);
+    const src=srcMatch?srcMatch[1]:'(no src)';
+    const altMatch=tag.match(/alt\s*=\s*["']([^"']*)["']/i);
+    if(!altMatch){missing++;rows.push({src,alt:'(missing)',status:'missing'});return}
+    const alt=altMatch[1];
+    if(alt.trim()===''){empty++;rows.push({src,alt:'(empty)',status:'empty'})}
+    else{ok++;rows.push({src,alt:alt.slice(0,80)+(alt.length>80?'...':''),status:'ok'})}
+  });
+  $('sTotal').textContent=total;$('sOk').textContent=ok;$('sMissing').textContent=missing;$('sEmpty').textContent=empty;
+  $('sTotal').style.color=total? 'var(--blue)':'var(--muted)';
+  $('summary').classList.add('show');
+  $('results').classList.add('show');
+  $('tips').classList.add('show');
+  $('tableBody').innerHTML=rows.map((r,i)=>'<tr><td style="color:var(--muted);font-size:11px">'+(i+1)+'</td><td style="font-family:monospace;font-size:11px;color:var(--blue)">'+escHtml(r.src)+'</td><td>'+escHtml(r.alt)+'</td><td>'+
+    (r.status==='ok'?'<span class="badge badge-ok">✅ Good</span>':r.status==='missing'?'<span class="badge badge-missing">❌ Missing</span>':'<span class="badge badge-empty">⚠️ Empty</span>')+'</td></tr>').join('');
+}
+function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function clearAll(){$('htmlInput').value='';$('summary').classList.remove('show');$('results').classList.remove('show');$('tips').classList.remove('show')}
+function loadSample(){$('htmlInput').value='<!DOCTYPE html>\n<html>\n<body>\n  <img src="/logo.png" alt="Company Logo - SEO Audit Tool">\n  <img src="/hero-banner.jpg" alt="Dashboard showing SEO score overview">\n  <img src="/icon-arrow.svg" alt="">\n  <img src="/photo-2026.jpg">\n  <img src="/footer-bg.svg" alt="Footer background illustration">\n  <img src="/screenshot.png" alt="Screenshot of the SEO audit results page showing a score of 85/100 with 12 issues found">\n</body>\n</html>'}
+</script>
+</body>
+</html>

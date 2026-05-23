@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<title>SEO Audit Tool — Self-Evolving Website Analysis System</title>
+<meta name="description" content="Self-evolving SEO audit tool that improves its detection rules every week. Free website analysis across 20+ checkpoints with actionable fix solutions.">
+<link rel="canonical" href="https://seo.textools.site/">
+<link rel="alternate" hreflang="en" href="https://seo.textools.site/">
+<link rel="alternate" hreflang="x-default" href="https://seo.textools.site/">
+<meta property="og:title" content="SEO Audit Tool — Self-Evolving SEO Analysis System">
+<meta property="og:description" content="A self-evolving SEO audit system. Each week our detection engine learns new rules from Google Search Central, web.dev, and best practices. Get a complete analysis with actionable fixes.">
+<meta property="og:url" content="https://seo.textools.site/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://seo.textools.site/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SEO Audit Tool — Self-Evolving SEO Analysis System">
+<meta name="twitter:description" content="A self-evolving SEO audit system. Weekly rule updates from Google official sources.">
+<meta name="twitter:image" content="https://seo.textools.site/og-image.svg">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SEO Audit Tool",
+  "description": "Self-evolving SEO analysis system. Weekly rule updates from Google Search Central and web.dev. 20+ SEO checkpoints with automated fix generation.",
+  "applicationCategory": "SEO Tool",
+  "operatingSystem": "Web",
+  "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "price": "9.9", "priceCurrency": "USD"}, {"@type": "Offer", "price": "29.9", "priceCurrency": "USD"}, {"@type": "Offer", "price": "199", "priceCurrency": "USD"}]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What kind of websites can I audit?", "acceptedAnswer": {"@type": "Answer", "text": "Any publicly accessible website. Landing pages, blogs, e-commerce, SaaS, tools — all work."}},
+    {"@type": "Question", "name": "What does 'self-evolving' mean?", "acceptedAnswer": {"@type": "Answer", "text": "Our detection engine automatically updates its rules every week. We monitor Google Search Central, web.dev, and official best practice sources — when Google announces a new policy or recommendation, our engine learns it before most SEO tools catch up."}},
+    {"@type": "Question", "name": "How is this different from PageSpeed Insights?", "acceptedAnswer": {"@type": "Answer", "text": "PageSpeed only checks speed. We check 24+ factors including meta tags, headings, structured data, images, links, content quality, social tags, spam policies, and more. Plus we generate actionable fix code."}},
+    {"@type": "Question", "name": "What does the subscription include?", "acceptedAnswer": {"@type": "Answer", "text": "After your initial report, we scan your website weekly and deliver fresh reports to your email. You get a score trend, new issues detected, and updated fix recommendations. Android/iOS not required."}},
+    {"@type": "Question", "name": "Can I share my audit score?", "acceptedAnswer": {"@type": "Answer", "text": "Yes! After running a free audit, you can share your SEO score badge on social media, forums, or your website. Each share sends a referral link — when someone audits their site through it, you earn free scan credits."}},
+    {"@type": "Question", "name": "Can I get a refund?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. If the report doesn't meet your expectations, contact us within 7 days for a full refund."}}
+  ]
+}
+</script>
+<link rel="stylesheet" href="/css/style.css?v=16">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QB3Z7T5CG1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QB3Z7T5CG1');
+</script>
+</head>
+<body>
+<noscript>
+  <div style="padding:40px;text-align:center;background:#1e1e2e;color:#cdd6f4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+    <div style="font-size:48px;margin-bottom:16px">🔍</div>
+    <h1 style="font-size:24px;margin-bottom:12px;color:#cdd6f4">SEO Audit Tool</h1>
+    <p style="color:#7f849c;max-width:400px;margin-bottom:20px">This tool requires JavaScript to run the SEO analysis engine. Please enable JavaScript in your browser settings and reload the page.</p>
+    <a href="https://seo.textools.site/" style="color:#89b4fa;text-decoration:underline">Reload →</a>
+  </div>
+</noscript>
+
+<!-- Nav -->
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/tools/">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/faq/">FAQ</a>
+    <a href="https://textools.site/privacy.html">Privacy</a>
+    <button class="nav-login" id="navLoginBtn" onclick="showLoginModal()" style="display:inline-flex">🔑 Login</button>
+    <button class="nav-login nav-user" id="navUserBtn" onclick="showUserMenu()" style="display:none">👤 Dashboard</button>
+  </div>
+</div>
+
+<!-- Tool Page -->
+<div class="tool-page show" id="toolPage">
+
+<!-- Hero -->
+<div class="hero">
+  <div class="badge">🧬 Self-Evolving Detection Engine</div>
+  <h1>Your Website's SEO Health + AI Visibility,<br>Analyzed Together</h1>
+  <p class="sub">24-point SEO audit + 🤖 <strong>AI Visibility check</strong> — see if AI search engines can find your content. <a href="https://textools.site/articles/en/20260521-is-ai-finding-your-website-seo-vs-geo.html" style="color:#89b4fa;text-decoration:none">What is GEO? →</a></p>
+  <form class="input-group" id="auditForm" onsubmit="return runAudit(event)">
+    <input type="url" id="urlInput" placeholder="https://yoursite.com (or paste multiple URLs, one per line)" autocomplete="url">
+    <button type="submit">Analyze →</button>
+  </form>
+  <div class="trust">⚡ Takes 10-30 seconds · Free basic report · No signup required</div>
+  <div style="margin-top:8px;font-size:11px;color:#45475a">🔑 Already have a key? <a href="javascript:void(0)" onclick="showLoginModal()" style="color:#585b70;text-decoration:underline;text-underline-offset:3px">Login here</a></div>
+  <div style="margin-top:30px;text-align:center">
+    <img src="/images/hero-illustration.svg" alt="SEO Audit illustration" style="max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(137,180,250,.1);max-height:320px">
+  </div>
+</div>
+
+<!-- Dashboard (shown when key is logged in) -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-welcome">👋 Welcome back, <strong id="dashKeyName">🔑</strong></div>
+  <div class="dash-balance" id="dashBalance">— <small>scans remaining</small></div>
+  <div class="dash-meta" id="dashMeta"></div>
+  <div class="dash-actions">
+    <button class="dash-btn primary" onclick="dashScanUrl()">🔍 Scan URL</button>
+    <button class="dash-btn" onclick="dashBuyMore()">📊 Buy More Scans</button>
+    <button class="dash-btn" onclick="dashRefresh()">🔄 Refresh Balance</button>
+    <button class="dash-btn logout" onclick="dashLogout()">🚪 Logout</button>
+  </div>
+  <div style="max-width:520px;margin:16px auto 0;display:none" id="dashScanRow">
+    <form class="input-group" id="dashAuditForm" onsubmit="return dashRunAudit(event)" style="margin-top:8px">
+      <input type="url" id="dashUrlInput" placeholder="https://yoursite.com">
+      <button type="submit">Analyze →</button>
+    </form>
+    <div style="font-size:10px;color:#45475a;margin-top:4px">💡 Tip: You can also paste multiple URLs (one per line) for a batch scan</div>
+  </div>
+  <div id="dashExtra" style="max-width:520px;margin:12px auto 0;font-size:11px;color:#585b70"></div>
+</div>
+
+<!-- Self-Evolving Banner -->
+<div class="evolve-banner">
+  <div class="evolve-icon">🧬</div>
+  <h3>Weekly Evolution Cycle</h3>
+  <p>We monitor Google's official sources and update our detection rules every Wednesday.<br>Your audit results always reflect the latest SEO landscape — not a static checklist from months ago.</p>
+  <div class="rule-tags">
+    <span>4 Core</span>
+    <span>13 High</span>
+    <span>6 Medium</span>
+    <span class="new">✨ Google Back Button Policy (Apr 2026)</span>
+    <span class="new">✨ Core Web Vitals Updates</span>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-item"><h3 id="statSites">0</h3><p>Sites Analyzed</p></div>
+  <div class="stat-item"><h3 id="statIssues">0</h3><p>Issues Found</p></div>
+  <div class="stat-item"><h3 id="statFixes">0</h3><p>Fixes Generated</p></div>
+</div>
+
+<button class="show-more-btn" id="showMoreBtn" onclick="toggleDetails()">Show more details <span class="arrow">↓</span></button>
+<div class="folded" id="foldedDetails">
+
+<!-- What We Check -->
+<div class="checks" id="checks">
+  <h2>📋 24-Point Detection Matrix</h2>
+  <p class="sub">Updated weekly from Google Search Central, web.dev, and verified best practices</p>
+  <div class="check-grid container">
+    <div class="check-item"><div class="icon">🏷️</div><div class="info"><h4>Title & Meta</h4><p>Length, keywords, uniqueness, clickability</p></div></div>
+    <div class="check-item"><div class="icon">📐</div><div class="info"><h4>Heading Structure</h4><p>H1-H6 hierarchy, missing levels, duplicates</p></div></div>
+    <div class="check-item"><div class="icon">🔗</div><div class="info"><h4>Link Structure</h4><p>Internal/external links, broken links</p></div></div>
+    <div class="check-item"><div class="icon">🖼️</div><div class="info"><h4>Image Alt Text</h4><p>Missing alt attributes, optimization</p></div></div>
+    <div class="check-item"><div class="icon">📊</div><div class="info"><h4>Structured Data</h4><p>JSON-LD, Schema.org, rich snippets</p></div></div>
+    <div class="check-item"><div class="icon">📱</div><div class="info"><h4>Mobile Readiness</h4><p>Viewport, responsive, tap targets</p></div></div>
+    <div class="check-item"><div class="icon">📰</div><div class="info"><h4>OG & Social Tags</h4><p>Open Graph, Twitter cards, share previews</p></div></div>
+    <div class="check-item"><div class="icon">📝</div><div class="info"><h4>Content Quality</h4><p>Word count, readability, keyword density</p></div></div>
+    <div class="check-item"><div class="icon">🗺️</div><div class="info"><h4>SEO Foundation</h4><p>robots.txt, sitemap, canonical</p></div></div>
+    <div class="check-item"><div class="icon">🔐</div><div class="info"><h4>Security</h4><p>HTTPS, mixed content, redirects</p></div></div>
+    <div class="check-item"><div class="icon">🧭</div><div class="info"><h4>Navigation</h4><p>Site structure, breadcrumbs</p></div></div>
+    <div class="check-item"><div class="icon">🚫</div><div class="info"><h4>Spam Policies</h4><p>Back button hijacking, popup traps</p></div></div>
+  </div>
+</div>
+
+<!-- How It Works -->
+<div class="how">
+  <h2>⚙️ How the Self-Evolving System Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h4>Enter URL</h4>
+      <p>Paste your website URL — our engine crawls and parses 20+ SEO factors</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h4>Live Detection</h4>
+      <p>24 rules run against your page. Industry detected, confidence scored, source attributed</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h4>Auto-Update Cycle</h4>
+      <p>Every Wednesday, our engine pulls new rules from Google official sources. Your next scan catches what others miss</p>
+    </div>
+  </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:24px">
+    <img src="/images/how-it-works.svg" alt="How the SEO audit system works" style="max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(137,180,250,.1);max-height:380px">
+  </div>
+</div>
+
+<!-- Pricing -->
+<div class="pricing" id="pricing">
+  <h2>💰 Choose Your Growth Path <span class="limited-badge">🕐 Limited Time</span></h2>
+  <p class="sub">Launch pricing — lock in the lowest rates before they go up</p>
+  <div class="price-grid">
+
+    <!-- Free -->
+    <div class="price-card">
+      <div class="tier-header">
+        <span class="tier-icon">🆓</span>
+        <span class="tier-name">Free Scan</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><span class="tag green">Score</span> Overall SEO score</div>
+        <div class="benefit"><span class="tag blue">Issues</span> Top 3 issues revealed</div>
+        <div class="benefit"><span class="tag gold">Detect</span> 24-point live detection + AI Visibility check</div>
+        <div class="benefit nope">Industry classification</div>
+        <div class="benefit nope">Fix code templates</div>
+        <div class="benefit nope">Email delivery</div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="free">$0</span></div>
+        <button class="btn secondary" onclick="document.getElementById('urlInput').focus();return false">Try Now</button>
+      </div>
+    </div>
+
+    <!-- Starter Pack -->
+    <div class="price-card tier-starter">
+      <span class="limited-tag">🎉 Launch Special</span>
+      <div class="tier-header">
+        <span class="tier-icon">📊</span>
+        <span class="tier-name">Starter Pack</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><span class="tag green">Audit</span> Full 24-point SEO audit per scan</div>
+        <div class="benefit"><span class="tag blue">Fixes</span> Copy-paste fix templates per issue</div>
+        <div class="benefit"><span class="tag gold">Download</span> PDF report download included</div>
+        <div class="benefit"><span class="tag blue">📬</span> 5 scans — any URL, any time</div>
+        <div class="benefit nope">Optimized HTML output</div>
+        <div class="benefit nope">Weekly push monitoring</div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="old-price">$19</span>$14.9 <span class="save-tag">Save 22%</span></div>
+        <button class="btn primary" id="subscribeStarter" onclick="openSubscribe('starter')" style="cursor:pointer">Get Starter Pack</button>
+      </div>
+    </div>
+
+    <!-- Growth Pack -->
+    <div class="price-card tier-growth">
+      <div class="badge-popular">Most Popular</div>
+      <span class="limited-tag">🎉 Launch Special</span>
+      <div class="tier-header">
+        <span class="tier-icon">🔧</span>
+        <span class="tier-name">Growth Pack</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><span class="tag green">Everything</span> Full audit + fixes + PDF report</div>
+        <div class="benefit"><span class="tag blue">Optimized HTML</span> Auto-generated SEO page with fixes applied<small>Proper heading structure · JSON-LD · OG tags</small></div>
+        <div class="benefit"><span class="tag gold">📬</span> 25 scans — register URLs for weekly push<small>We scan your sites weekly and email you the report</small></div>
+        <div class="benefit"><span class="tag blue">Score History</span> Compare this week vs last — see what improved</div>
+        <div class="benefit nope">150 scans</div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="old-price">$69</span>$49 <span class="save-tag">Save 29%</span> <small>/one-time</small></div>
+        <button class="btn green" id="subscribeGrowth" onclick="openSubscribe('growth')" style="cursor:pointer">Get Growth Pack →</button>
+      </div>
+      <div class="urgency-line"><span class="pulse">⚡</span> 25 scans = 6+ months of weekly monitoring for 1 site</div>
+    </div>
+
+    <!-- Pro Pack -->
+    <div class="price-card tier-pro">
+      <span class="limited-tag">🎉 Launch Special</span>
+      <div class="tier-header">
+        <span class="tier-icon">🏆</span>
+        <span class="tier-name">Pro Pack</span>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><span class="tag green">All Growth Benefits</span> Full audit · optimized HTML · fixes · PDF</div>
+        <div class="benefit"><span class="tag gold">📬</span> <strong>150 scans</strong> — register unlimited URLs for weekly push<small>Scan multiple sites every week for ~3 years. Best value.</small></div>
+        <div class="benefit"><span class="tag blue">📈</span> Score trend dashboard — watch SEO improve over time</div>
+        <div class="benefit"><span class="tag green">🔔</span> Priority alerts when Google releases new rules affecting your sites<small>Our engine detects impact before your rankings drop</small></div>
+        <div class="benefit"><span class="tag gold">🎁</span> 🆕 Every future feature included — no extra cost, ever<small>AI Visibility · GEO insights · whatever we build next</small></div>
+      </div>
+      <div class="price-row">
+        <div class="price-num"><span class="old-price">$199</span>$149 <span class="save-tag">Save 25%</span> <small>/one-time</small></div>
+        <button class="btn primary" id="subscribePro" onclick="openSubscribe('pro')" style="cursor:pointer">Get Pro Pack</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Weekly Subscription -->
+  <div class="sub-card" style="max-width:900px;margin:20px auto 0;display:grid;grid-template-columns:0.8fr 1.2fr auto;align-items:center;gap:20px;background:linear-gradient(135deg,rgba(137,180,250,.06),rgba(166,227,161,.06));border:1px solid rgba(137,180,250,.15);border-radius:14px;padding:20px 24px">
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:32px">📬</div>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#cdd6f4">Weekly Subscription</div>
+        <div style="font-size:11px;color:#585b70;margin-top:2px">Pay once, get 30 days. Renew when you want.</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <span class="tag" style="background:rgba(137,180,250,.12);color:#89b4fa;font-size:11px;padding:3px 10px;border-radius:6px">Auto-scan every week</span>
+      <span class="tag" style="background:rgba(166,227,161,.12);color:#a6e3a1;font-size:11px;padding:3px 10px;border-radius:6px">Email report delivery</span>
+      <span class="tag" style="background:rgba(249,226,175,.12);color:#f9e2af;font-size:11px;padding:3px 10px;border-radius:6px">Cancel any time</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;justify-self:end">
+      <div style="text-align:right">
+        <div style="font-size:24px;font-weight:800;color:#a6e3a1">$9.9</div>
+        <div style="font-size:10px;color:#585b70">/month · USDT TRC-20</div>
+      </div>
+      <button class="btn green" onclick="openSubscribe('monthly')" style="cursor:pointer;padding:10px 20px;font-size:13px;white-space:nowrap">Subscribe →</button>
+    </div>
+
+  </div>
+
+  <p class="limited-notice">🕐 These are launch prices. Regular pricing applies once we hit our first 100 paid users. Lock in the lowest rate while you can.</p>
+</div>
+
+      </div>
+    </div>
+
+      <!-- USDT Payment (Auto) -->
+      <div class="pricing-card highlight" style="margin-top:20px;max-width:500px;margin-left:auto;margin-right:auto">
+        <div class="tier-icon" style="font-size:24px">₮</div>
+        <div class="tier-name" style="font-size:16px">💎 USDT (TRC-20) — Auto Key</div>
+        <div style="padding:16px 20px;text-align:center">
+          <p style="font-size:12px;color:#585b70;margin-bottom:10px">Send USDT — key issued automatically within 2 minutes</p>
+          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:6px">
+            <button class="btn primary" id="usdtStarter" style="padding:8px 16px;font-size:12px;cursor:pointer">Starter $14.9</button>
+            <button class="btn green" id="usdtGrowth" style="padding:8px 16px;font-size:12px;cursor:pointer">Growth $49</button>
+            <button class="btn primary" id="usdtPro" style="padding:8px 16px;font-size:12px;cursor:pointer">Pro $149</button>
+          </div>
+          <div style="font-size:10px;color:#585b70">🔐 Key sent to your email automatically. No manual confirmation needed.</div>
+        </div>
+      </div>
+
+<!-- Growth Flywheel -->
+<div class="growth">
+  <h2>🔄 The Growth Flywheel</h2>
+  <div class="growth-grid">
+    <div class="growth-item">
+      <div class="icon">🏷️</div>
+      <h4>Share Your Score</h4>
+      <p>After a free audit, one-click copy a shareable score card. Post it on Twitter, LinkedIn, forums — every share is free traffic back to your site.</p>
+    </div>
+    <div class="growth-item">
+      <div class="icon">🔗</div>
+      <h4>Refer & Earn (Paid Users)</h4>
+      <p>Subscribers get a unique referral link via email. When someone purchases through your link, you earn credits tied to their pack: Starter → +2 scans, Growth → +5 scans, Pro → +20 scans. Credits stack. Anti-cheat: different email + different domain + real payment required.</p>
+    </div>
+    <div class="growth-item">
+      <div class="icon">🧬</div>
+      <h4>Network Effect</h4>
+      <p>More sites analyzed = richer detection data. Every audit helps our self-evolving engine understand what issues matter most across the web.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq" id="faq">
+  <h2>❓ FAQ</h2>
+  <div class="faq-item">
+    <div class="q" onclick="toggleFaq(this)">What does "self-evolving" actually mean? <span>+</span></div>
+    <div class="a">Our detection engine is connected to Google Search Central, web.dev, and verified SEO best practices. Every Wednesday, it checks for new articles, policy changes, and rule updates. When Google announces a new spam policy (like the April 2026 back button hijacking rule), our engine learns it before most static tools update. Your audit results always reflect the latest SEO landscape.</div>
+  </div>
+  <div class="faq-item">
+    <div class="q" onclick="toggleFaq(this)">How is this different from other SEO tools? <span>+</span></div>
+    <div class="a">Most SEO tools have a fixed checklist that updates a few times a year. Our rules update weekly. Each check has a confidence level and source attribution — you can see whether a rule comes from HTML standards (core), established best practices (high), or recent Google policy (medium/experimental).</div>
+  </div>
+  <div class="faq-item">
+    <div class="q" onclick="toggleFaq(this)">What happens after I pay? <span>+</span></div>
+    <div class="a">Instant: PayPal delivers your seo_ key immediately via email. USDT (TRC-20): key issued automatically within ~2 minutes after on-chain confirmation — no manual steps needed. Starter/Growth/Pro packs are one-time purchases, not subscriptions. Key delivered to your email with full instructions.</div>
+  </div>
+  <div class="faq-item">
+    <div class="q" onclick="toggleFaq(this)">Can I share my audit score? <span>+</span></div>
+    <div class="a">Yes! After any free audit, click the "Share Score" button to generate a badge. Post it anywhere. Each share has your referral link — when someone audits their site, you both earn credits toward upgrades.</div>
+  </div>
+  <div class="faq-item">
+    <div class="q" onclick="toggleFaq(this)">Which plan should I choose? <span>+</span></div>
+    <div class="a">If you need a quick check → Starter Pack (<span style="text-decoration:line-through;opacity:.6">$19</span>$14.9, 5 scans). Actively fixing issues? → Growth Pack (<span style="text-decoration:line-through;opacity:.6">$69</span>$49, 25 scans + weekly push). All-in → Pro Pack (<span style="text-decoration:line-through;opacity:.6">$199</span>$149, 150 scans + priority alerts). All plans accept PayPal (instant) or USDT TRC-20 (auto-key in ~2min).</div>
+  </div>
+  <div class="faq-item">
+    <div class="q" onclick="toggleFaq(this)">How does the referral system work? <span>+</span></div>
+    <div class="a">When you purchase any paid plan, your confirmation email includes a unique referral link. Share it with colleagues. Credits earned per referred purchase: Starter Pack → +2 scans, Growth Pack → +5 scans, Pro Pack → +20 scans. Multiple verification layers: different email, different domain, real payment required. Credits stack with no cap.</div>
+  </div>
+  <div class="faq-item">
+    <div class="q" onclick="toggleFaq(this)">Can I get a refund? <span>+</span></div>
+    <div class="a">Yes. If the report doesn't meet your expectations, contact us within 7 days for a full refund.</div>
+  </div>
+</div>
+
+</div> <!-- /tool-page -->
+
+<!-- Results Page -->
+<div class="results-page container" id="resultsPage">
+<div id="resultsContent"></div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <a href="https://textools.site/">Text Tools</a> · <a href="https://textools.site/privacy.html">Privacy</a> · <a href="https://textools.site/terms.html">Terms</a> · <a href="https://seo.textools.site/">SEO Audit</a>
+  <br>🧬 Self-evolving since 2026 · Rules updated weekly
+</div>
+
+<!-- Subscribe Modal -->
+<div class="modal-overlay" id="subscribeModal">
+  <div class="modal">
+    <button class="btn-close" onclick="closeSubscribe()">✕</button>
+    <div id="subscribeContent"></div>
+  </div>
+</div>
+
+<!-- Results Modal -->
+<div class="modal-overlay" id="resultsModal">
+  <div class="modal results-modal" id="resultsModalInner">
+    <button class="btn-close" onclick="closeResultsModal()">✕</button>
+    <div id="resultsModalContent"></div>
+  </div>
+</div>
+
+<!-- Key Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal login-modal">
+    <button class="btn-close" onclick="closeLoginModal()">✕</button>
+    <h3>🔑 Key Login</h3>
+    <div class="sub">Paste your seo_ key to access paid features</div>
+    <input type="text" id="loginKeyInput" placeholder="seo_xxxxxxxxxxxxxxxx" style="width:100%;padding:10px 14px;border-radius:8px;border:1px solid rgba(137,180,250,.2);background:rgba(24,24,37,.8);color:#cdd6f4;font-size:14px;outline:none;font-family:monospace;box-sizing:border-box;text-align:center;letter-spacing:1px" oninput="onLoginKeyInput()">
+    <div class="status-msg" id="loginStatus"></div>
+    <button class="btn-submit" id="loginSubmitBtn" onclick="processKeyLogin()">🔑 Login</button>
+    <div class="detail" style="margin-top:10px">💡 Don't have a key? <a href="#pricing" onclick="closeLoginModal();" style="color:#89b4fa;text-decoration:none">Buy a pack</a> — key delivered via email instantly.</div>
+    <div class="detail">📧 Need us to resend your key? <a href="mailto:support@textools.site?subject=Resend%20SEO%20Key" style="color:#585b70">Contact support</a></div>
+  </div>
+</div>
+
+<!-- USDT Payment Modal -->
+
+<script src="/js/app.js?v=16"></script>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;flex-direction:column;color:#cdd6f4">
+  <div style="width:40px;height:40px;border:3px solid rgba(137,180,250,.2);border-top-color:#89b4fa;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:16px"></div>
+  <div style="font-size:14px">Analyzing your website...</div>
+</div>
+
+</body>
+</html>

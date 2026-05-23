@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google SERP Preview Tool — See How Your Page Looks in Search Results</title>
+<meta name="description" content="Free Google Search Result Preview tool. Preview how your title, URL, and meta description appear in Google SERP. Check mobile and desktop snippets with character count warnings.">
+<link rel="canonical" href="https://seo.textools.site/tools/serp-preview/">
+<meta property="og:title" content="Google SERP Preview Tool — Free SEO Tool">
+<meta property="og:description" content="Preview your Google search result snippet. Real-time preview with mobile/desktop toggle and SEO character count guides.">
+<meta property="og:url" content="https://seo.textools.site/tools/serp-preview/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Google SERP Preview Tool">
+<meta name="twitter:description" content="Preview your Google search result snippet in real-time. Mobile & desktop views with character limits.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Google SERP Preview Tool",
+  "description": "Real-time preview of how your website appears in Google search results. Supports desktop and mobile views with SEO title and description character limits.",
+  "applicationCategory": "SEO Tool",
+  "operatingSystem": "Web"
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1e1e2e;--surface:#181825;--surface2:#313244;
+  --text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;
+  --blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;
+  --border:#45475a;--radius:12px;--radius-sm:8px
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Nav ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}
+.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}
+.nav .nav-active{color:#cdd6f4;font-weight:600}
+
+/* ── Page ── */
+.container{max-width:1000px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none;transition:opacity .2s}
+.breadcrumb a:hover{opacity:.8}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:28px;max-width:600px}
+
+/* ── Two column layout ── */
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+@media(max-width:768px){.layout{grid-template-columns:1fr}}
+
+/* ── Input panel ── */
+.input-panel{display:flex;flex-direction:column;gap:18px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:12px;font-weight:600;color:var(--subtext);display:flex;justify-content:space-between;align-items:center}
+.form-group label .char-count{font-weight:400;color:var(--muted);font-size:11px}
+.char-count.warn{color:var(--yellow)}
+.char-count.over{color:var(--red)}
+.form-group .hint{font-size:11px;color:var(--muted)}
+
+input,textarea{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:10px 14px;color:var(--text);font-size:14px;outline:none;
+  transition:border-color .2s,box-shadow .2s;font-family:inherit;width:100%
+}
+input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+textarea{resize:vertical;min-height:80px}
+
+/* ── Device toggle ── */
+.device-toggle{display:flex;gap:6px;margin:2px 0}
+.device-btn{
+  padding:6px 16px;border-radius:20px;border:1px solid var(--border);
+  background:var(--surface);color:var(--subtext);cursor:pointer;font-size:12px;font-family:inherit;
+  transition:all .2s
+}
+.device-btn:hover{border-color:var(--muted);color:var(--text)}
+.device-btn.active{background:var(--blue);color:#1e1e2e;border-color:var(--blue);font-weight:600}
+.device-btn.active:hover{opacity:.9}
+
+/* ── SERP Preview Card ── */
+.preview-wrap{position:sticky;top:76px}
+.preview-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.3),0 1px 3px rgba(0,0,0,.2)}
+.preview-header{background:#f0f0f0;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #d4d4d4}
+.preview-header .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.dot-red{background:#ff5f56}.dot-yellow{background:#ffbd2e}.dot-green{background:#27c93f}
+.preview-header .label{font-size:11px;color:#777;margin-left:6px;font-family:-apple-system,sans-serif}
+.preview-header .url-bar{
+  flex:1;margin-left:8px;background:#e4e4e4;border-radius:6px;padding:5px 10px;
+  font-size:11px;color:#555;font-family:-apple-system,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.preview-body{padding:24px 20px;background:#fff}
+.preview-body.mobile{max-width:360px;margin:0 auto}
+
+/* Google SERP Snippet (light mode fixed) */
+.serp-snippet{font-family:arial,sans-serif}
+.serp-url{font-size:14px;color:#006621;line-height:1.3;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.serp-title{font-size:20px;color:#1a0dab;line-height:1.3;cursor:pointer;margin-bottom:2px}
+.serp-title:hover{text-decoration:underline}
+.serp-desc{font-size:14px;color:#545454;line-height:1.58;word-wrap:break-word}
+
+.preview-body.mobile .serp-title{font-size:16px}
+.preview-body.mobile .serp-url{font-size:12px}
+.preview-body.mobile .serp-desc{font-size:12px}
+
+/* ── Tips ── */
+.tips{margin-top:20px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:20px}
+.tips h3{font-size:14px;margin-bottom:12px;color:var(--yellow);display:flex;align-items:center;gap:8px;font-weight:700}
+.tips ul{list-style:none;padding:0}
+.tips li{font-size:12px;color:var(--subtext);margin-bottom:7px;padding-left:16px;position:relative;line-height:1.5}
+.tips li::before{content:'•';position:absolute;left:2px;color:var(--blue)}
+.tips .good{color:var(--green)}
+.tips .bad{color:var(--red)}
+
+/* ── Share ── */
+.share-section{margin-top:28px;text-align:center}
+.share-section p{font-size:13px;color:var(--subtext);margin-bottom:10px}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;font-size:12px;text-decoration:none;color:#fff;transition:opacity .2s,transform .15s}
+.share-btn:hover{opacity:.85;transform:translateY(-1px)}
+.share-twitter{background:#1da1f2}
+.share-linkedin{background:#0a66c2}
+.share-facebook{background:#1877f2}
+.share-whatsapp{background:#25d366}
+
+/* ── Footer ── */
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none;transition:opacity .2s}
+.footer a:hover{opacity:.8}
+
+/* ── Animation ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .35s ease-out}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+
+<div class="container fade-in">
+  <div class="page-top">
+    <div class="breadcrumb">
+      <a href="/">Home</a> <span>›</span>
+      <a href="/tools/">Free Tools</a> <span>›</span>
+      <span>Google SERP Preview</span>
+    </div>
+    <h1>🔎 <span>Google SERP Preview</span></h1>
+    <p class="subtitle">See exactly how your website appears in Google search results before you publish. Enter your page title, URL, and meta description below — the preview updates in real-time.</p>
+  </div>
+
+  <div class="layout">
+    <!-- Input Panel -->
+    <div class="input-panel">
+      <div class="form-group">
+        <label>Page Title <span class="char-count" id="titleCount">0 / 60</span></label>
+        <input type="text" id="inputTitle" placeholder="e.g. Best SEO Tools 2025 — Free Website Audit" maxlength="70" value="Free SEO Audit Tool — Analyze Your Website Now">
+      </div>
+
+      <div class="form-group">
+        <label>Display URL <span class="char-count" id="urlCount"></span></label>
+        <input type="text" id="inputUrl" placeholder="e.g. seo.textools.site / free-seo-audit" value="seo.textools.site / free-seo-audit">
+        <span class="hint">← Visible URL path (not the full link)</span>
+      </div>
+
+      <div class="form-group">
+        <label>Meta Description <span class="char-count" id="descCount">0 / 160</span></label>
+        <textarea id="inputDesc" placeholder="e.g. Free SEO audit tool that checks 20+ factors..." maxlength="320">A self-evolving SEO audit tool. Check 20+ factors including meta tags, headings, structured data, and page speed. Get actionable fix code and weekly monitoring reports.</textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Preview Device</label>
+        <div class="device-toggle">
+          <button class="device-btn active" data-device="desktop" onclick="setDevice('desktop')">💻 Desktop</button>
+          <button class="device-btn" data-device="mobile" onclick="setDevice('mobile')">📱 Mobile</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Panel -->
+    <div class="preview-wrap">
+      <div class="preview-card">
+        <div class="preview-header">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <span class="label">Google Search</span>
+          <span class="url-bar" id="headerUrl">seo.textools.site / free-seo-audit</span>
+        </div>
+        <div class="preview-body" id="previewBody">
+          <div class="serp-snippet">
+            <div class="serp-url" id="serpUrl">seo.textools.site / free-seo-audit</div>
+            <div class="serp-title" id="serpTitle">Free SEO Audit Tool — Analyze Your Website Now</div>
+            <div class="serp-desc" id="serpDesc">A self-evolving SEO audit tool. Check 20+ factors including meta tags, headings, structured data, and page speed. Get actionable fix code and weekly monitoring reports.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tips">
+        <h3>💡 SEO Tips for Better Snippets</h3>
+        <ul id="tipsList">
+          <li class="good">✅ Title length: 50-60 characters for best display</li>
+          <li class="good">✅ Description length: 150-160 characters for full snippet</li>
+          <li class="good">✅ Place important keywords at the start of your title</li>
+          <li class="good">✅ Use numbers and power words (Free, Best, 2025, Ultimate)</li>
+          <li class="good">✅ Match your title/description to actual page content</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="share-section">
+    <p>📣 Share this tool with your SEO friends</p>
+    <div class="share-btns">
+      <a class="share-btn share-twitter" href="https://twitter.com/intent/tweet?text=Preview%20how%20your%20site%20appears%20in%20Google%20SERP%20-%20free%20tool&url=https://seo.textools.site/tools/serp-preview/" target="_blank" rel="noopener">𝕏 Twitter</a>
+      <a class="share-btn share-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://seo.textools.site/tools/serp-preview/&title=Google%20SERP%20Preview%20Tool" target="_blank" rel="noopener">in LinkedIn</a>
+      <a class="share-btn share-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://seo.textools.site/tools/serp-preview/" target="_blank" rel="noopener">f Facebook</a>
+      <a class="share-btn share-whatsapp" href="https://wa.me/?text=Google%20SERP%20Preview%20Tool%20-%20See%20how%20your%20site%20looks%20in%20search%20results%20https://seo.textools.site/tools/serp-preview/" target="_blank" rel="noopener">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools for website owners and marketers.
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const inputTitle = $('inputTitle'), inputUrl = $('inputUrl'), inputDesc = $('inputDesc');
+const serpTitle = $('serpTitle'), serpUrl = $('serpUrl'), serpDesc = $('serpDesc');
+const headerUrl = $('headerUrl');
+const titleCount = $('titleCount'), urlCount = $('urlCount'), descCount = $('descCount');
+const previewBody = $('previewBody'), tipsList = $('tipsList');
+
+function updatePreview() {
+  const t = inputTitle.value || 'Your Page Title';
+  const u = inputUrl.value || 'example.com / page';
+  const d = inputDesc.value || 'Your meta description...';
+
+  serpTitle.textContent = t;
+  serpUrl.textContent = u;
+  serpDesc.textContent = d;
+  headerUrl.textContent = u;
+
+  const tLen = t.length, dLen = d.length;
+  titleCount.textContent = tLen + ' / 60';
+  descCount.textContent = dLen + ' / 160';
+  urlCount.textContent = u.length > 0 ? u.length + ' chars' : '';
+
+  titleCount.className = 'char-count' + (tLen > 60 ? ' over' : tLen > 50 ? ' warn' : '');
+  descCount.className = 'char-count' + (dLen > 160 ? ' over' : dLen > 150 ? ' warn' : '');
+
+  let tips = [];
+  tips.push(tLen < 30 ? '⚠️ Title too short (under 30 chars) — add more context' : `✅ Title length ${tLen} chars — ${tLen <= 60 ? 'optimal' : 'may be truncated'}`);
+  tips.push(dLen < 120 ? '⚠️ Description too short (under 120 chars) — expand for better snippets' : dLen > 160 ? '⚠️ Description over 160 chars — may be truncated in SERP' : `✅ Description length ${dLen} chars — in optimal range`);
+  tips.push(tLen <= 60 && tLen >= 30 ? '✅ Place main keywords near the start of your title' : '⚠️ Consider placing main keywords at the beginning');
+  tips.push(dLen >= 120 && dLen <= 160 ? "✅ Description is well within Google's typical snippet range" : '⚠️ Aim for 150-160 characters for best display');
+  tips.push(/free|best|top|ultimate|2025|guide|how to/i.test(t) ? '✅ Good use of power words in title (Free, Best, Ultimate, Guide)' : '💡 Consider adding power words: Free, Best, Ultimate, Guide');
+
+  tipsList.innerHTML = tips.map(tip => `<li class="${tip.startsWith('✅')?'good':'bad'}">${tip}</li>`).join('');
+}
+
+function setDevice(device) {
+  document.querySelectorAll('.device-btn').forEach(b => b.classList.toggle('active', b.dataset.device === device));
+  previewBody.classList.toggle('mobile', device === 'mobile');
+}
+
+let debounceTimer;
+function handleInput(){clearTimeout(debounceTimer);debounceTimer=setTimeout(updatePreview,100)}
+inputTitle.addEventListener('input', handleInput);
+inputUrl.addEventListener('input', handleInput);
+inputDesc.addEventListener('input', handleInput);
+updatePreview();
+</script>
+</body>
+</html>

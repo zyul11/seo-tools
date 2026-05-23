@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schema Markup Generator — Free JSON-LD Structured Data Generator</title>
+<meta name="description" content="Free schema markup generator. Create JSON-LD structured data for LocalBusiness, Article, FAQ, Product, and more. Copy-paste ready for your website.">
+<link rel="canonical" href="https://seo.textools.site/tools/schema-generator/">
+<meta property="og:title" content="Schema Markup Generator — Free SEO Tool">
+<meta property="og:description" content="Generate JSON-LD structured data in seconds. Supports LocalBusiness, Article, FAQ, Product, and BreadcrumbList schemas.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Schema Markup Generator","description":"Generate JSON-LD structured data for LocalBusiness, Article, FAQ, Product, and BreadcrumbList schemas.","applicationCategory":"SEO Tool","operatingSystem":"Web"}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1e1e2e;--surface:#181825;--surface2:#313244;--text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;--blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;--border:#45475a;--radius:12px;--radius-sm:8px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}.nav .nav-active{color:#cdd6f4;font-weight:600}
+.container{max-width:920px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:24px;max-width:550px}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:768px){.layout{grid-template-columns:1fr}}
+.form-group{margin-bottom:14px}
+.form-group label{font-size:11px;font-weight:600;color:var(--subtext);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+input,select{width:100%;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;outline:none;font-family:inherit;transition:border-color .2s}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+.schema-type-selector{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.schema-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;transition:all .2s}
+.schema-btn:hover{border-color:var(--muted);color:var(--subtext)}
+.schema-btn.active{background:rgba(137,180,250,.12);border-color:var(--blue);color:var(--blue);font-weight:600}
+.output-area{position:relative}
+.output-area textarea{width:100%;min-height:360px;background:#11111b;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;color:#a6e3a1;font-size:12px;font-family:'SF Mono','Fira Code','Cascadia Code',monospace;line-height:1.6;resize:vertical;outline:none}
+.copy-btn{position:absolute;top:8px;right:8px;padding:5px 12px;border-radius:6px;border:none;background:rgba(137,180,250,.12);color:var(--blue);font-size:11px;cursor:pointer;font-family:inherit;transition:all .2s}
+.copy-btn:hover{background:rgba(137,180,250,.2)}
+#faqFields .q-row{display:flex;gap:8px;margin-bottom:6px;align-items:center}
+#faqFields .q-row input{flex:1}
+#faqFields .q-row .del-btn{padding:4px 8px;border-radius:4px;border:none;background:rgba(243,139,168,.15);color:var(--red);font-size:11px;cursor:pointer}
+.add-btn{padding:4px 12px;border-radius:6px;border:1px dashed var(--border);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;margin-top:4px}
+.add-btn:hover{border-color:var(--blue);color:var(--blue)}
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+<div class="container">
+  <div class="page-top">
+    <div class="breadcrumb"><a href="/">Home</a> <span>›</span> <a href="/tools/">Free Tools</a> <span>›</span> <span>Schema Generator</span></div>
+    <h1>🏷️ <span>Schema Markup Generator</span></h1>
+    <p class="subtitle">Generate JSON-LD structured data for your website. Pick a schema type, fill in the fields, and copy the ready-to-use code. No schema markup knowledge needed.</p>
+  </div>
+  <div class="schema-type-selector">
+    <button class="schema-btn active" onclick="setSchema('Article')">📰 Article</button>
+    <button class="schema-btn" onclick="setSchema('LocalBusiness')">🏪 LocalBusiness</button>
+    <button class="schema-btn" onclick="setSchema('FAQPage')">❓ FAQ</button>
+    <button class="schema-btn" onclick="setSchema('Product')">📦 Product</button>
+    <button class="schema-btn" onclick="setSchema('BreadcrumbList')">🍞 Breadcrumb</button>
+  </div>
+  <div class="layout">
+    <div id="inputFields">
+      <div class="form-group"><label>Name</label><input type="text" id="fName" value="My Article" oninput="genSchema()"></div>
+      <div class="form-group"><label>URL</label><input type="url" id="fUrl" value="https://example.com/article" oninput="genSchema()"></div>
+      <div class="form-group" id="fDescGroup"><label>Description</label><input type="text" id="fDesc" value="A comprehensive guide to SEO best practices." oninput="genSchema()"></div>
+      <div id="extraFields"></div>
+    </div>
+    <div class="output-area">
+      <button class="copy-btn" onclick="copySchema()">📋 Copy</button>
+      <textarea id="output" readonly></textarea>
+    </div>
+  </div>
+</div>
+<div class="footer"><a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools.</div>
+<script>
+let currentSchema='Article';
+function setSchema(type){
+  currentSchema=type;
+  document.querySelectorAll('.schema-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(type)));
+  updateFields();genSchema();
+}
+function updateFields(){
+  const fields=document.getElementById('inputFields');
+  const ef=document.getElementById('extraFields');ef.innerHTML='';
+  switch(currentSchema){
+    case 'Article':
+      document.getElementById('fDescGroup').style.display='';
+      ef.innerHTML='<div class="form-group"><label>Author</label><input type="text" id="fAuthor" value="John Doe" oninput="genSchema()"></div><div class="form-group"><label>Published Date</label><input type="date" id="fDate" value="2026-05-22" oninput="genSchema()"></div>';
+      break;
+    case 'LocalBusiness':
+      document.getElementById('fDescGroup').style.display='';
+      ef.innerHTML='<div class="form-group"><label>Address</label><input type="text" id="fAddr" value="123 Main St, New York, NY 10001" oninput="genSchema()"></div><div class="form-group"><label>Phone</label><input type="text" id="fPhone" value="+1-555-123-4567" oninput="genSchema()"></div>';
+      break;
+    case 'FAQPage':
+      document.getElementById('fDescGroup').style.display='none';
+      ef.innerHTML='<div id="faqFields"><div class="q-row"><input type="text" id="q0" placeholder="Question" value="What is SEO?" oninput="genSchema()"><input type="text" id="a0" placeholder="Answer" value="SEO stands for Search Engine Optimization." oninput="genSchema()"><button class="del-btn" onclick="removeFaq(0)">✕</button></div><div class="q-row"><input type="text" id="q1" placeholder="Question" value="Why is SEO important?" oninput="genSchema()"><input type="text" id="a1" placeholder="Answer" value="SEO helps your website rank higher." oninput="genSchema()"><button class="del-btn" onclick="removeFaq(1)">✕</button></div></div><button class="add-btn" onclick="addFaq()">+ Add Question</button>';
+      break;
+    case 'Product':
+      document.getElementById('fDescGroup').style.display='';
+      ef.innerHTML='<div class="form-group"><label>Price</label><input type="text" id="fPrice" value="29.99" oninput="genSchema()"></div><div class="form-group"><label>Currency</label><input type="text" id="fCurrency" value="USD" oninput="genSchema()"></div><div class="form-group"><label>Availability</label><select id="fAvail" onchange="genSchema()"><option value="InStock">In Stock</option><option value="OutOfStock">Out of Stock</option><option value="PreOrder">Pre-Order</option></select></div>';
+      break;
+    case 'BreadcrumbList':
+      document.getElementById('fDescGroup').style.display='none';
+      ef.innerHTML='<div id="crumbFields"><div class="q-row"><input type="text" id="c0n" placeholder="Name" value="Home"><input type="text" id="c0u" placeholder="URL" value="https://example.com/"><button class="del-btn" onclick="removeCrumb(0)">✕</button></div><div class="q-row"><input type="text" id="c1n" placeholder="Name" value="Blog"><input type="text" id="c1u" placeholder="URL" value="https://example.com/blog"><button class="del-btn" onclick="removeCrumb(1)">✕</button></div></div><button class="add-btn" onclick="addCrumb()">+ Add Crumb</button>';
+      break;
+  }
+}
+let faqCount=2,crumbCount=2;
+function addFaq(){
+  const c=faqCount++;const d=document.getElementById('faqFields');
+  const r=document.createElement('div');r.className='q-row';r.id='fr'+c;
+  r.innerHTML='<input type="text" id="q'+c+'" placeholder="Question" oninput="genSchema()"><input type="text" id="a'+c+'" placeholder="Answer" oninput="genSchema()"><button class="del-btn" onclick="removeFaq('+c+')">✕</button>';
+  d.appendChild(r);
+}
+function removeFaq(i){const e=document.getElementById('fr'+i);if(e)e.remove();genSchema()}
+function addCrumb(){const c=crumbCount++;const d=document.getElementById('crumbFields');
+  const r=document.createElement('div');r.className='q-row';r.id='cr'+c;
+  r.innerHTML='<input type="text" id="c'+c+'n" placeholder="Name" oninput="genSchema()"><input type="text" id="c'+c+'u" placeholder="URL" oninput="genSchema()"><button class="del-btn" onclick="removeCrumb('+c+')">✕</button>';
+  d.appendChild(r);
+}
+function removeCrumb(i){const e=document.getElementById('cr'+i);if(e)e.remove();genSchema()}
+function v(id){return document.getElementById(id)?.value||''}
+function genSchema(){
+  let schema={};
+  switch(currentSchema){
+    case 'Article':schema={"@context":"https://schema.org","@type":"Article","headline":v('fName'),"url":v('fUrl'),"description":v('fDesc'),"author":{"@type":"Person","name":v('fAuthor')},"datePublished":v('fDate')};break;
+    case 'LocalBusiness':schema={"@context":"https://schema.org","@type":"LocalBusiness","name":v('fName'),"url":v('fUrl'),"description":v('fDesc'),"address":{"@type":"PostalAddress","streetAddress":v('fAddr')},"telephone":v('fPhone')};break;
+    case 'FAQPage':const qs=[];document.querySelectorAll('#faqFields .q-row').forEach(r=>{const q=r.querySelector('input:first-child')?.value;const a=r.querySelector('input:nth-child(2)')?.value;if(q&&a)qs.push({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}})});schema={"@context":"https://schema.org","@type":"FAQPage","mainEntity":qs};break;
+    case 'Product':schema={"@context":"https://schema.org","@type":"Product","name":v('fName'),"url":v('fUrl'),"description":v('fDesc'),"offers":{"@type":"Offer","price":v('fPrice'),"priceCurrency":v('fCurrency'),"availability":"https://schema.org/"+v('fAvail')}};break;
+    case 'BreadcrumbList':const items=[];let pos=1;document.querySelectorAll('#crumbFields .q-row').forEach(r=>{const n=r.querySelector('input:first-child')?.value;const u=r.querySelector('input:nth-child(2)')?.value;if(n&&u)items.push({"@type":"ListItem","position":pos++,"name":n,"item":u})});schema={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":items};break;
+  }
+  document.getElementById('output').value=JSON.stringify(schema,null,2);
+}
+function copySchema(){const o=document.getElementById('output');o.select();navigator.clipboard.writeText(o.value).then(()=>{const btn=document.querySelector('.copy-btn');btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='📋 Copy',2000)})}
+updateFields();genSchema();
+</script>
+</body>
+</html>

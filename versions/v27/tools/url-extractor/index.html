@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Extractor — Extract Links from Text Online Free Tool</title>
+<meta name="description" content="Free online URL extractor. Paste any text and instantly extract all http/https/ftp URLs. Each URL is a copyable button. Max 20 links. Works in your browser, nothing sent to server.">
+<link rel="canonical" href="https://seo.textools.site/tools/url-extractor/">
+<meta property="og:title" content="URL Extractor — Extract Links from Text">
+<meta property="og:description" content="Paste text, extract all URLs as copyable buttons. Fast, free, client-side only.">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"URL Extractor","description":"Extract all http/https/ftp URLs from pasted text. Each URL becomes a copyable button. Max 20 URLs.","applicationCategory":"SEO Tool","operatingSystem":"Web"}</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#1e1e2e;--surface:#181825;--surface2:#313244;--text:#cdd6f4;--subtext:#a6adc8;--muted:#6c7086;--blue:#89b4fa;--green:#a6e3a1;--red:#f38ba8;--yellow:#f9e2af;--border:#45475a;--radius:12px;--radius-sm:8px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+.nav{position:sticky;top:0;z-index:100;background:rgba(30,30,46,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav a{color:var(--subtext);text-decoration:none;font-size:14px;margin-left:20px;transition:color .2s}
+.nav a:hover{color:var(--text)}
+.nav .logo{font-size:18px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px}
+.nav .logo span{color:var(--blue)}
+.nav .nav-active{color:#cdd6f4;font-weight:600}
+.container{max-width:800px;margin:0 auto;padding:0 20px;flex:1;width:100%}
+.page-top{padding:36px 0 8px}
+.breadcrumb{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.breadcrumb a{color:var(--blue);text-decoration:none}
+h1{font-size:28px;font-weight:800;margin-bottom:6px}
+h1 span{background:linear-gradient(135deg,#89b4fa,#a6e3a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#7f849c;font-size:14px;line-height:1.6;margin-bottom:24px;max-width:500px}
+textarea{width:100%;min-height:250px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;color:var(--text);font-size:14px;font-family:inherit;line-height:1.7;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s}
+textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(137,180,250,.12)}
+textarea::placeholder{color:#585b70}
+.actions{display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.btn{padding:8px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{background:var(--surface2);color:var(--text)}
+.btn-secondary:hover{background:var(--border)}
+.result-header{display:flex;align-items:center;gap:12px;margin-top:24px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.result-header h2{font-size:16px;font-weight:700}
+.result-header .count{font-size:13px;color:var(--muted)}
+.url-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-bottom:40px}
+.url-item{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;transition:all .2s}
+.url-item:hover{border-color:var(--blue)}
+.url-item .url-text{flex:1;font-size:12px;color:var(--blue);word-break:break-all;line-height:1.4;min-width:0}
+.url-item .copy-btn{flex-shrink:0;padding:6px 14px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:var(--blue);color:#11111b;transition:all .2s;white-space:nowrap}
+.url-item .copy-btn:hover{opacity:.85;transform:translateY(-1px)}
+.url-item .copy-btn.copied{background:var(--green)}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.empty-state .icon{font-size:48px;margin-bottom:12px;opacity:.3}
+.limit-warn{background:rgba(249,226,175,.08);border:1px solid rgba(249,226,175,.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:12px;color:var(--yellow);margin-top:12px;display:none}
+.privacy-note{font-size:11px;color:var(--muted);margin-top:10px}
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;margin-top:auto}
+.footer a{color:var(--blue);text-decoration:none}
+@media(max-width:600px){
+  .url-item{flex-direction:column;align-items:stretch;gap:8px}
+  .url-item .copy-btn{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="logo">🔍 <span>SEO</span> Audit</div>
+  <div>
+    <a href="https://textools.site">Text Tools</a>
+    <a href="/">Audit Tool</a>
+    <a href="/tools/" class="nav-active">Free Tools</a>
+    <a href="/blog/">Blog</a>
+    <a href="/faq/">FAQ</a>
+  </div>
+</div>
+<div class="container">
+  <div class="page-top">
+    <div class="breadcrumb"><a href="/">Home</a> <span>›</span> <a href="/tools/">Free Tools</a> <span>›</span> <span>URL Extractor</span></div>
+    <h1>🔗 <span>URL Extractor</span></h1>
+    <p class="subtitle">Paste any text (email, chat, document) and instantly extract all URLs. Each link becomes a copyable button. Max 20 URLs.</p>
+  </div>
+
+  <textarea id="textInput" placeholder="Paste your text here with URLs...&#10;&#10;Example:&#10;Check out https://seo.textools.site for a free SEO audit.&#10;And our blog at https://seo.textools.site/blog/&#10;Contact us via info@example.com or visit https://example.com/about"></textarea>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="extractUrls()">🔍 Extract URLs</button>
+    <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
+    <span style="font-size:11px;color:var(--muted);margin-left:auto">All processing happens in your browser.</span>
+  </div>
+
+  <div class="limit-warn" id="limitWarn">⚠️ Found more than 20 URLs. Only the first 20 are shown to prevent abuse.</div>
+
+  <div id="resultArea" style="display:none">
+    <div class="result-header">
+      <h2>📋 Extracted URLs</h2>
+      <span class="count" id="urlCount"></span>
+    </div>
+    <div class="url-list" id="urlList"></div>
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="icon">🔗</div>
+    <p>Paste text above and click <strong>Extract URLs</strong> to find all links.</p>
+  </div>
+</div>
+<div class="footer"><a href="https://seo.textools.site">SEO Audit Tool</a> — Free online SEO tools.</div>
+
+<script>
+function $(id){return document.getElementById(id)}
+function extractUrls(){
+  const text=$('textInput').value;
+  if(!text.trim()){showToast('Please paste some text first.');return}
+  
+  // URL regex: match http/https/ftp URLs (not inside existing HTML tags)
+  const urlRegex = /https?:\/\/[^\s<>"']+|ftp:\/\/[^\s<>"']+/gi;
+  const matches = text.match(urlRegex) || [];
+  
+  // Deduplicate
+  const unique = [...new Set(matches.map(u=>u.replace(/[.,;:!?]+$/, '')))];
+  
+  // Limit to 20
+  const limited = unique.slice(0, 20);
+  
+  const limitWarn=$('limitWarn');
+  if(unique.length>20){
+    limitWarn.style.display='block';
+  }else{
+    limitWarn.style.display='none';
+  }
+  
+  const resultArea=$('resultArea');
+  const urlList=$('urlList');
+  const emptyState=$('emptyState');
+  const urlCount=$('urlCount');
+  
+  if(limited.length===0){
+    resultArea.style.display='none';
+    emptyState.style.display='block';
+    emptyState.innerHTML='<div class="icon">😕</div><p>No URLs found in the text. Make sure your text contains http:// or https:// links.</p>';
+    return;
+  }
+  
+  emptyState.style.display='none';
+  resultArea.style.display='block';
+  urlCount.textContent='('+limited.length+' URL'+(limited.length>1?'s':'')+')';
+  
+  urlList.innerHTML='';
+  limited.forEach(function(url,index){
+    const item=document.createElement('div');
+    item.className='url-item';
+    
+    const num=document.createElement('span');
+    num.style.cssText='font-size:11px;color:var(--muted);min-width:22px;text-align:right';
+    num.textContent=(index+1)+'.';
+    
+    const textSpan=document.createElement('span');
+    textSpan.className='url-text';
+    textSpan.textContent=url;
+    
+    const btn=document.createElement('button');
+    btn.className='copy-btn';
+    btn.textContent='📋 Copy';
+    btn.dataset.url=url;
+    btn.onclick=function(){
+      // Use Clipboard API
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(function(){
+          btn.textContent='✅ Copied!';
+          btn.classList.add('copied');
+          setTimeout(function(){
+            btn.textContent='📋 Copy';
+            btn.classList.remove('copied');
+          },1500);
+        }).catch(function(){
+          fallbackCopy(url,btn);
+        });
+      }else{
+        fallbackCopy(url,btn);
+      }
+    };
+    
+    item.appendChild(num);
+    item.appendChild(textSpan);
+    item.appendChild(btn);
+    urlList.appendChild(item);
+  });
+}
+
+function fallbackCopy(text,btn){
+  const ta=document.createElement('textarea');
+  ta.value=text;
+  ta.style.position='fixed';
+  ta.style.opacity='0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{
+    document.execCommand('copy');
+    btn.textContent='✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent='📋 Copy';
+      btn.classList.remove('copied');
+    },1500);
+  }catch(e){
+    btn.textContent='❌ Failed';
+  }
+  document.body.removeChild(ta);
+}
+
+function clearAll(){
+  $('textInput').value='';
+  $('resultArea').style.display='none';
+  $('limitWarn').style.display='none';
+  var es=$('emptyState');
+  es.style.display='block';
+  es.innerHTML='<div class="icon">🔗</div><p>Paste text above and click <strong>Extract URLs</strong> to find all links.</p>';
+}
+
+function showToast(msg){
+  alert(msg);
+}
+</script>
+</body>
+</html>
