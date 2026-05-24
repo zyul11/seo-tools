@@ -290,6 +290,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .results-modal .conf-badge.low{background:rgba(243,139,168,.1);color:#f38ba8}
 .results-modal .paywall-section h4{font-size:12px;margin-bottom:4px}
 .results-modal .paywall-section p{font-size:10px;color:#585b70;margin-bottom:8px}
+
+/* ── Feedback Form ── */
+.feedback-section{margin-top:20px;padding-top:16px;border-top:1px solid rgba(137,180,250,.08)}
+.feedback-section h5{font-size:11px;color:#a6adc8;margin:0 0 10px;font-weight:500}
+.feedback-btns{display:flex;gap:8px;margin-bottom:10px}
+.feedback-btn{padding:6px 14px;border-radius:8px;border:1px solid rgba(137,180,250,.15);background:rgba(24,24,37,.6);color:#a6adc8;font-size:11px;cursor:pointer;font-family:inherit;transition:all .2s}
+.feedback-btn:hover{border-color:rgba(137,180,250,.4);background:rgba(137,180,250,.08)}
+.feedback-btn.active{border-color:#89b4fa;background:rgba(137,180,250,.15);color:#cdd6f4}
+.feedback-textarea{width:100%;padding:8px 12px;border-radius:8px;border:1px solid rgba(137,180,250,.12);background:rgba(24,24,37,.6);color:#cdd6f4;font-size:11px;outline:none;font-family:inherit;resize:vertical;min-height:50px;box-sizing:border-box;margin-bottom:8px}
+.feedback-textarea:focus{border-color:rgba(137,180,250,.3)}
+.feedback-submit{padding:6px 18px;border-radius:8px;border:none;background:rgba(137,180,250,.15);color:#89b4fa;font-size:11px;cursor:pointer;font-family:inherit;font-weight:600;transition:all .2s}
+.feedback-submit:hover{background:rgba(137,180,250,.25)}
+.feedback-msg{font-size:10px;margin-top:6px;padding:4px 0}
 .modal .status-msg.success{display:block;background:rgba(166,227,161,.1);color:#a6e3a1;border:1px solid rgba(166,227,161,.15)}
 .modal .status-msg.error{display:block;background:rgba(243,139,168,.1);color:#f38ba8;border:1px solid rgba(243,139,168,.15)}
 .modal .price-tag{font-size:22px;font-weight:700;color:#89b4fa;text-align:center;margin:8px 0}
@@ -1504,6 +1517,17 @@ function renderFullPaidResults(report, key) {
       '<div style="margin-bottom:20px">' + checksHtml + '</div>' +
       '<h4 style="font-size:13px;margin-bottom:10px;color:#a6adc8">🔴 All Issues</h4>' +
       '<div class="issue-list">' + issuesHtml + '</div>' +
+      // Feedback form
+      '<div class="feedback-section">' +
+        '<h5>' + t('feedback.title') + '</h5>' +
+        '<div class="feedback-btns">' +
+          '<button class="feedback-btn" data-vote="helpful" onclick="selectFeedback(this)">' + t('feedback.helpful') + '</button>' +
+          '<button class="feedback-btn" data-vote="not_helpful" onclick="selectFeedback(this)">' + t('feedback.not_helpful') + '</button>' +
+        '</div>' +
+        '<textarea class="feedback-textarea" id="feedbackText" placeholder="' + t('feedback.placeholder') + '" style="display:none"></textarea>' +
+        '<div style="display:none" id="feedbackSubmitWrap"><button class="feedback-submit" onclick="sendFeedback(\'' + report.url + '\')">' + t('feedback.submit') + '</button></div>' +
+        '<div class="feedback-msg" id="feedbackMsg"></div>' +
+      '</div>' +
     '</div>';
   document.getElementById('resultsModal').classList.add('show');
 }
@@ -1553,6 +1577,45 @@ function showDetail(index) {
   const results = window._multiResults;
   const key = window._multiKey;
   if (results && results[index]) renderFullPaidResults(results[index], key);
+}
+
+// ── Feedback ──
+let _feedbackVote = '';
+function selectFeedback(el) {
+  document.querySelectorAll('.feedback-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  _feedbackVote = el.dataset.vote;
+  document.getElementById('feedbackText').style.display = 'block';
+  document.getElementById('feedbackSubmitWrap').style.display = 'block';
+  document.getElementById('feedbackMsg').textContent = '';
+}
+function sendFeedback(url) {
+  const text = document.getElementById('feedbackText').value.trim();
+  const msg = document.getElementById('feedbackMsg');
+  const btn = document.querySelector('.feedback-submit');
+  btn.textContent = '⏳...';
+  btn.disabled = true;
+  const payload = { url: url, vote: _feedbackVote, text: text };
+  fetch('/v1/feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(r => {
+    msg.style.color = '#a6e3a1';
+    msg.textContent = t('feedback.thanks');
+    btn.style.display = 'none';
+    document.getElementById('feedbackText').style.display = 'none';
+    document.getElementById('feedbackSubmitWrap').style.display = 'none';
+  }).catch(e => {
+    // Fallback: open email
+    const body = encodeURIComponent('URL: ' + url + '\nVote: ' + _feedbackVote + '\nFeedback: ' + text);
+    window.open('mailto:support@textools.site?subject=SEO%20Audit%20Feedback&body=' + body);
+    msg.style.color = '#a6e3a1';
+    msg.textContent = t('feedback.done');
+    btn.style.display = 'none';
+    document.getElementById('feedbackText').style.display = 'none';
+    document.getElementById('feedbackSubmitWrap').style.display = 'none';
+  });
 }
 
 // ── Register URL for Weekly Push ──
