@@ -1041,67 +1041,54 @@ function renderResults(report, url) {
   const domain = url.indexOf('://') > -1 ? new URL(url).hostname : url;
   container.innerHTML = `
     <div class="report-card">
-      <h3 style="font-size:14px;color:#cdd6f4;margin:0 0 12px;text-align:center">📊 Your SEO Audit Report is Ready</h3>
-
-      <!-- Score + AI Vis row -->
-      <div class="score-wrap" style="gap:16px;margin-bottom:12px">
+      <div class="score-wrap">
         <div class="score-ring" style="background:conic-gradient(${scoreColor} 0deg ${degrees}deg, #313244 ${degrees}deg 360deg)">
           <div class="inner"><div class="num" style="color:${scoreColor}">${score}</div><div class="label">Score</div></div>
         </div>
-        <div class="score-info" style="flex:1">
-          <h3 style="font-size:13px;margin:0 0 2px">🔍 SEO Audit: ${domain}</h3>
-          <p style="font-size:10px;margin:2px 0">${issues.length} issues · ${checks.length} checkpoints</p>
-          <div id="aiVisContent" style="margin-top:4px;padding:4px 8px;background:rgba(137,180,250,.06);border-radius:6px;font-size:10px;color:#89b4fa">
-            🤖 AI Visibility: <strong>Checking...</strong>
+        <div class="score-info">
+          <h3>🔍 SEO Audit: ${domain}</h3>
+          <p>${issues.length} issues · ${checks.length} checkpoints · <span style="color:#a6e3a1">🧬 ${report.rule_source ? report.rule_source.total_rules+' rules' : '24 rules'}</span></p>
+          ${report.site_type ? '<p style="font-size:11px;color:#585b70;margin-top:3px">🏭 Detected as: <strong>'+report.site_type.label+'</strong></p>' : ''}
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+            <button onclick="openSubscribe('starter')" class="btn" style="font-size:11px;padding:6px 14px;border-radius:6px;border:none;background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b;font-weight:600;cursor:pointer;font-family:inherit">📊 Starter Pack — <span style="text-decoration:line-through;opacity:.6">$19</span>$14.9</button>
+            <button onclick="openSubscribe('growth')" class="btn" style="font-size:11px;padding:6px 14px;border-radius:6px;border:none;background:linear-gradient(135deg,#a6e3a1,#94e2d5);color:#11111b;font-weight:600;cursor:pointer;font-family:inherit">🔧 Growth Pack — <span style="text-decoration:line-through;opacity:.6">$69</span>$49</button>
+          </div>
+          <button onclick="generateArticle('${domain}')" id="genArticleBtn" style="font-size:10px;padding:4px 12px;border-radius:6px;border:1px solid rgba(137,180,250,.15);background:transparent;color:#585b70;cursor:pointer;font-family:inherit;margin-top:6px">📝 Generate Article</button>
+          <button onclick="showShareScore(${score},'${domain}')" style="font-size:10px;padding:4px 12px;border-radius:6px;border:1px solid rgba(137,180,250,.15);background:transparent;color:#585b70;cursor:pointer;font-family:inherit;margin-top:6px">🏷️ Share Score</button>
+          <a href="#resultsModal" style="display:inline-block;font-size:11px;color:#585b70;text-decoration:none;margin-left:8px" onclick="closeResultsModal();return false">← New Scan</a>
+        </div>
+      </div>
+      <h4 style="font-size:13px;margin-bottom:10px;color:#a6adc8">📋 Check Results</h4>
+      <div style="margin-bottom:20px">${checksHtml}</div>
+      <h4 style="font-size:13px;margin-bottom:10px;color:#a6adc8">🔴 Top Issues</h4>
+      <div class="issue-list">${issuesHtml}</div>
+      <!-- AI Visibility -->
+      <div class="ai-vis-section" style="margin-top:16px;border-top:1px solid rgba(137,180,250,.08);padding-top:12px">
+        <h4 style="font-size:13px;margin-bottom:8px;color:#a6adc8">🤖 AI Visibility</h4>
+        <div id="aiVisContent" style="font-size:11px;color:#585b70">
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:8px 0">
+            <span style="font-size:14px">🔍</span>
+            <div>
+              <div style="color:#a6adc8;margin-bottom:2px">Checking AI visibility...</div>
+              <div style="font-size:10px;color:#45475a">Detecting Clarity · querying AI citations</div>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Key Findings -->
-      <div style="background:rgba(137,180,250,.04);border:1px solid rgba(137,180,250,.08);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:10px;color:#a6adc8;line-height:1.5">
-        <strong style="color:#cdd6f4">Key Findings:</strong> We found <strong style="color:${scoreColor}">${issues.length} issues</strong> on your website.
-        ${(() => {
-          const critical = issues.filter(i => i.severity === 'high').length;
-          if (critical > 0) return \`<strong style="color:#f38ba8"> ${critical} Critical issues</strong> may be hurting your rankings and AI visibility.\`;
-          return ' Your site has a solid foundation with some areas for improvement.';
-        })()}
-      </div>
-
-      <!-- Top 3 Issues Preview -->
-      <h4 style="font-size:11px;margin:0 0 6px;color:#a6adc8">🔴 Top Issues Preview</h4>
-      <div class="issue-list">${issuesHtml}</div>
-
-      <!-- CTA Paywall -->
       <div class="paywall-section" id="paywallSection">
-        <h4 style="font-size:13px">🔑 See the Complete 24-Point Audit + Fix Templates</h4>
-        <p style="font-size:10px">Unlock all issues with priority ranking, ready-to-use fix code, and weekly monitoring.</p>
-        <div style="margin-bottom:6px">
-          <button class="btn green" onclick="openSubscribe('growth')" style="width:100%;padding:12px;font-size:14px">→ Unlock Full Report with Growth Pack ($49)</button>
-        </div>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;font-size:9px;color:#45475a">
-          <span>🧬 Updated with latest Google rules</span>
-          <span>💳 7-day money-back guarantee</span>
-          <span>📄 Instant PDF download</span>
-        </div>
-        <div style="margin-top:10px;border-top:1px solid rgba(137,180,250,.08);padding-top:8px">
-          <div style="display:flex;gap:6px;margin-bottom:6px">
+        <h4>🔑 Full Report + Weekly Monitoring</h4>
+        <p>See all ${issues.length} issues with fix templates, optimized HTML, and continuous monitoring</p>
+        <div style="margin-top:10px;border-top:1px solid rgba(137,180,250,.08);padding-top:12px">
+          <div style="display:flex;gap:6px;margin-bottom:8px">
             <input type="text" id="keyInput" placeholder="Enter your seo_ key..." style="flex:1;padding:8px 12px;border-radius:6px;border:1px solid rgba(137,180,250,.15);background:rgba(24,24,37,.8);color:#cdd6f4;font-size:12px;outline:none;font-family:inherit">
             <button onclick="runPaidAudit()" style="padding:8px 16px;border-radius:6px;border:none;background:linear-gradient(135deg,#89b4fa,#b4befe);color:#11111b;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Unlock</button>
           </div>
           <div id="keyStatus" style="font-size:10px;color:#585b70;text-align:center"></div>
-          <div style="text-align:center;font-size:9px;color:#585b70">— or choose a plan —</div>
+          <div style="text-align:center;font-size:10px;color:#585b70;margin:6px 0 8px">— or —</div>
         </div>
-        <div style="display:flex;gap:6px;margin-top:6px">
-          <button class="btn primary" onclick="openSubscribe('starter')" style="flex:1;font-size:10px">Starter $14.9</button>
-          <button class="btn primary" onclick="openSubscribe('pro')" style="flex:1;font-size:10px;background:rgba(137,180,250,.08);color:#89b4fa;border:1px solid rgba(137,180,250,.2)">Pro $149</button>
-        </div>
-      </div>
-
-      <!-- Utility buttons -->
-      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-        <button onclick="generateArticle('${domain}')" id="genArticleBtn" style="font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid rgba(137,180,250,.15);background:transparent;color:#585b70;cursor:pointer;font-family:inherit">📝 Generate Article</button>
-        <button onclick="showShareScore(${score},'${domain}')" style="font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid rgba(137,180,250,.15);background:transparent;color:#585b70;cursor:pointer;font-family:inherit">🏷️ Share Score</button>
-        <button onclick="closeResultsModal()" style="font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid rgba(137,180,250,.15);background:transparent;color:#585b70;cursor:pointer;font-family:inherit">← New Scan</button>
+        <button class="btn primary" onclick="openSubscribe('starter')">Starter Pack — <span style="text-decoration:line-through;opacity:.6">$19</span>$14.9</button>
+        <button class="btn green" onclick="openSubscribe('growth')">Growth Pack — <span style="text-decoration:line-through;opacity:.6">$69</span>$49</button>
+        <button class="btn primary" onclick="openSubscribe('pro')" style="background:rgba(137,180,250,.08);color:#89b4fa;border:1px solid rgba(137,180,250,.2)">Pro Pack — <span style="text-decoration:line-through;opacity:.6">$199</span>$149</button>
       </div>
     </div>
   `;
@@ -1121,14 +1108,51 @@ async function checkAiVisibility(url) {
     });
     const analyticsData = await analyticsCheck.json();
     const hasGA = analyticsData.success && analyticsData.has_analytics;
+    const domain = url.indexOf('://') > -1 ? new URL(url).hostname : url;
     if (hasGA) {
-      el.innerHTML = `🤖 AI Visibility: <strong style="color:#a6e3a1">Analytics detected ✓</strong>`;
+      el.innerHTML = `
+        <div style="display:flex;gap:8px;align-items:flex-start;padding:6px 0">
+          <span style="font-size:14px">🟢</span>
+          <div>
+            <div style="color:#a6e3a1;margin-bottom:2px">Google Analytics detected</div>
+            <div style="font-size:10px;color:#585b70">AI bot traffic being tracked — citation analysis coming with Pro Pack</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start;padding:6px 0">
+          <span style="font-size:14px">🤖</span>
+          <div>
+            <div style="color:#a6adc8;margin-bottom:2px">AI Citations</div>
+            <div style="font-size:10px;color:#45475a">🔒 Unlock with Pro Pack — see which AI platforms reference your content</div>
+          </div>
+        </div>`;
     } else {
-      el.innerHTML = `🤖 AI Visibility: <strong style="color:#f9e2af">Limited</strong> — <a href="https://analytics.google.com" target="_blank" style="color:#89b4fa;text-decoration:none">Setup GA4 →</a>`;
+      el.innerHTML = `
+        <div style="display:flex;gap:8px;align-items:flex-start;padding:6px 0">
+          <span style="font-size:14px">⚪</span>
+          <div>
+            <div style="color:#a6adc8;margin-bottom:2px">No analytics detected</div>
+            <div style="font-size:10px;color:#45475a;line-height:1.6">
+              Install Google Analytics (free) to track which AI bots visit your site and how your content performs.<br>
+              <a href="https://analytics.google.com" target="_blank" rel="noopener" style="color:#89b4fa;text-decoration:none">Set up GA4 →</a>
+              <span style="color:#585b70"> · paste your Measurement ID below after setup</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:6px;padding:8px;background:rgba(24,24,37,.6);border-radius:6px;display:flex;gap:6px">
+          <input type="text" id="analyticsIdInput" placeholder="Measurement ID (e.g. G-XXXXXXXXXX)" style="flex:1;padding:6px 10px;border-radius:4px;border:1px solid rgba(137,180,250,.15);background:#1e1e2e;color:#cdd6f4;font-size:10px;outline:none;font-family:inherit">
+          <button onclick="saveAnalyticsId('${domain}')" style="padding:6px 12px;border-radius:4px;border:none;background:#89b4fa;color:#11111b;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit">Save</button>
+        </div>`;
     }
   } catch(e) {
     if (el) {
-      el.innerHTML = `🤖 AI Visibility: <span style="color:#585b70">Check failed</span>`;
+      el.innerHTML = `
+        <div style="display:flex;gap:8px;align-items:flex-start;padding:6px 0">
+          <span style="font-size:14px">⚪</span>
+          <div>
+            <div style="color:#a6adc8;margin-bottom:2px">AI Visibility</div>
+            <div style="font-size:10px;color:#45475a">Install <a href="https://analytics.google.com" target="_blank" rel="noopener" style="color:#89b4fa;text-decoration:none">Google Analytics</a> (free) to track AI bot visits and user behavior.</div>
+          </div>
+        </div>`;
     }
   }
 }

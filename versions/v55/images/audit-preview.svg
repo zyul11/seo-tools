@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#89b4fa"/>
+      <stop offset="100%" style="stop-color:#a6e3a1"/>
+    </linearGradient>
+    <filter id="panelShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="ringGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#89b4fa" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="400" rx="12" ry="12" fill="#1e1e2e"/>
+
+  <!-- Decorative bg pattern -->
+  <g opacity="0.03">
+    <circle cx="500" cy="50" r="120" fill="#89b4fa"/>
+    <circle cx="100" cy="350" r="80" fill="#a6e3a1"/>
+  </g>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="600" height="44" rx="12" fill="#181825"/>
+  <rect x="0" y="22" width="600" height="22" fill="#181825"/>
+  <!-- Window controls -->
+  <circle cx="18" cy="22" r="5" fill="#f38ba8"/>
+  <circle cx="34" cy="22" r="5" fill="#fab387"/>
+  <circle cx="50" cy="22" r="5" fill="#a6e3a1"/>
+  <text x="300" y="27" text-anchor="middle" fill="#585b70" font-size="11" font-family="sans-serif">SEO Audit Report — seo.textools.site</text>
+
+  <!-- Divider -->
+  <line x1="0" y1="44" x2="600" y2="44" stroke="#313244" stroke-width="1"/>
+
+  <!-- Left Panel: Score Section -->
+  <g transform="translate(20, 62)" filter="url(#panelShadow)">
+    <rect x="0" y="0" width="220" height="310" rx="10" fill="#181825" stroke="#313244" stroke-width="1.2"/>
+
+    <!-- Score ring -->
+    <g transform="translate(110, 90)" filter="url(#ringGlow)">
+      <!-- Background ring -->
+      <circle cx="0" cy="0" r="60" fill="none" stroke="#313244" stroke-width="10"/>
+      <!-- Arc - 78% -->
+      <path d="M 0,-60 A 60,60 0 1,1 -52.5,29"
+            fill="none" stroke="url(#scoreGrad)" stroke-width="10" stroke-linecap="round"/>
+      <!-- Inner circle -->
+      <circle cx="0" cy="0" r="48" fill="#1e1e2e"/>
+      <!-- Score number -->
+      <text x="0" y="-8" text-anchor="middle" fill="#cdd6f4" font-size="34" font-weight="bold" font-family="sans-serif">78</text>
+      <text x="0" y="16" text-anchor="middle" fill="#a6e3a1" font-size="12" font-family="sans-serif">Average</text>
+    </g>
+
+    <!-- Score details -->
+    <g transform="translate(20, 175)">
+      <text x="0" y="0" fill="#585b70" font-size="10" font-family="sans-serif">Overall SEO Score</text>
+      <rect x="0" y="8" width="180" height="6" rx="3" fill="#313244"/>
+      <!-- 78% fill -->
+      <rect x="0" y="8" width="140" height="6" rx="3" fill="url(#scoreGrad)" opacity="0.8"/>
+
+      <text x="0" y="30" fill="#585b70" font-size="10" font-family="sans-serif">Page Speed</text>
+      <rect x="0" y="38" width="180" height="6" rx="3" fill="#313244"/>
+      <rect x="0" y="38" width="126" height="6" rx="3" fill="#fab387" opacity="0.8"/>
+
+      <text x="0" y="60" fill="#585b70" font-size="10" font-family="sans-serif">Mobile Friendliness</text>
+      <rect x="0" y="68" width="180" height="6" rx="3" fill="#313244"/>
+      <rect x="0" y="68" width="160" height="6" rx="3" fill="#a6e3a1" opacity="0.8"/>
+
+      <text x="0" y="90" fill="#585b70" font-size="10" font-family="sans-serif">Content Quality</text>
+      <rect x="0" y="98" width="180" height="6" rx="3" fill="#313244"/>
+      <rect x="0" y="98" width="110" height="6" rx="3" fill="#89b4fa" opacity="0.8"/>
+    </g>
+  </g>
+
+  <!-- Right Panel: Check List + Issues -->
+  <g transform="translate(260, 62)">
+    <!-- Check List Section -->
+    <g filter="url(#panelShadow)">
+      <rect x="0" y="0" width="320" height="148" rx="10" fill="#181825" stroke="#313244" stroke-width="1.2"/>
+      <text x="15" y="22" fill="#cdd6f4" font-size="12" font-weight="bold" font-family="sans-serif">Passed Checks</text>
+      <line x1="15" y1="30" x2="305" y2="30" stroke="#313244" stroke-width="1"/>
+
+      <!-- Check items -->
+      <g transform="translate(15, 45)">
+        <circle cx="5" cy="5" r="5" fill="#a6e3a1" opacity="0.3"/>
+        <polyline points="2,5 4,7 8,3" fill="none" stroke="#a6e3a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Meta title length is optimal</text>
+      </g>
+      <g transform="translate(15, 67)">
+        <circle cx="5" cy="5" r="5" fill="#a6e3a1" opacity="0.3"/>
+        <polyline points="2,5 4,7 8,3" fill="none" stroke="#a6e3a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Canonical tag is present</text>
+      </g>
+      <g transform="translate(15, 89)">
+        <circle cx="5" cy="5" r="5" fill="#a6e3a1" opacity="0.3"/>
+        <polyline points="2,5 4,7 8,3" fill="none" stroke="#a6e3a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">SSL certificate valid</text>
+      </g>
+      <g transform="translate(15, 111)">
+        <circle cx="5" cy="5" r="5" fill="#a6e3a1" opacity="0.3"/>
+        <polyline points="2,5 4,7 8,3" fill="none" stroke="#a6e3a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Robots.txt is accessible</text>
+      </g>
+      <g transform="translate(15, 133)">
+        <circle cx="5" cy="5" r="5" fill="#a6e3a1" opacity="0.3"/>
+        <polyline points="2,5 4,7 8,3" fill="none" stroke="#a6e3a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Viewport meta tag configured</text>
+      </g>
+    </g>
+
+    <!-- Issues Section -->
+    <g transform="translate(0, 162)" filter="url(#panelShadow)">
+      <rect x="0" y="0" width="320" height="210" rx="10" fill="#181825" stroke="#313244" stroke-width="1.2"/>
+      <text x="15" y="22" fill="#cdd6f4" font-size="12" font-weight="bold" font-family="sans-serif">Issues Found</text>
+      <text x="280" y="22" text-anchor="end" fill="#f38ba8" font-size="11" font-weight="bold" font-family="sans-serif">6</text>
+      <line x1="15" y1="30" x2="305" y2="30" stroke="#313244" stroke-width="1"/>
+
+      <!-- Issue items -->
+      <g transform="translate(15, 44)">
+        <circle cx="5" cy="5" r="5" fill="#f38ba8" opacity="0.2"/>
+        <line x1="3" y1="3" x2="7" y2="7" stroke="#f38ba8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="3" x2="3" y2="7" stroke="#f38ba8" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Missing meta description</text>
+        <text x="290" y="8" text-anchor="end" fill="#f38ba8" font-size="8" font-family="sans-serif">High</text>
+      </g>
+      <g transform="translate(15, 68)">
+        <circle cx="5" cy="5" r="5" fill="#fab387" opacity="0.2"/>
+        <line x1="3" y1="3" x2="7" y2="7" stroke="#fab387" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="3" x2="3" y2="7" stroke="#fab387" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Multiple H1 tags on page</text>
+        <text x="290" y="8" text-anchor="end" fill="#fab387" font-size="8" font-family="sans-serif">Med</text>
+      </g>
+      <g transform="translate(15, 92)">
+        <circle cx="5" cy="5" r="5" fill="#f38ba8" opacity="0.2"/>
+        <line x1="3" y1="3" x2="7" y2="7" stroke="#f38ba8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="3" x2="3" y2="7" stroke="#f38ba8" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">3 broken internal links found</text>
+        <text x="290" y="8" text-anchor="end" fill="#f38ba8" font-size="8" font-family="sans-serif">High</text>
+      </g>
+      <g transform="translate(15, 116)">
+        <circle cx="5" cy="5" r="5" fill="#fab387" opacity="0.2"/>
+        <line x1="3" y1="3" x2="7" y2="7" stroke="#fab387" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="3" x2="3" y2="7" stroke="#fab387" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Images missing alt attributes</text>
+        <text x="290" y="8" text-anchor="end" fill="#fab387" font-size="8" font-family="sans-serif">Med</text>
+      </g>
+      <g transform="translate(15, 140)">
+        <circle cx="5" cy="5" r="5" fill="#f38ba8" opacity="0.2"/>
+        <line x1="3" y1="3" x2="7" y2="7" stroke="#f38ba8" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="3" x2="3" y2="7" stroke="#f38ba8" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">Slow LCP (3.8s)</text>
+        <text x="290" y="8" text-anchor="end" fill="#f38ba8" font-size="8" font-family="sans-serif">High</text>
+      </g>
+      <g transform="translate(15, 164)">
+        <circle cx="5" cy="5" r="5" fill="#585b70" opacity="0.3"/>
+        <circle cx="5" cy="5" r="2" fill="#585b70"/>
+        <text x="18" y="8" fill="#cdd6f4" font-size="10" font-family="sans-serif">No structured data (schema.org)</text>
+        <text x="290" y="8" text-anchor="end" fill="#585b70" font-size="8" font-family="sans-serif">Low</text>
+      </g>
+    </g>
+  </g>
+</svg>
