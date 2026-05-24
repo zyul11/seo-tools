@@ -1157,7 +1157,11 @@ function renderResults(report, url) {
       <!-- Key Findings -->
       <div style="background:rgba(137,180,250,.04);border:1px solid rgba(137,180,250,.08);border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:10px;color:#a6adc8;line-height:1.5">
         <strong style="color:#cdd6f4">Key Findings:</strong> We found <strong style="color:${scoreColor}">${issues.length} issues</strong> on your website.
-        ${(function(){const c = issues.filter(i => i.severity === 'high').length;if(c>0)return '<strong style="color:#f38ba8"> '+c+' Critical issues</strong> may be hurting your rankings and AI visibility.';return ' Your site has a solid foundation with some areas for improvement.';})()}
+        ${(() => {
+          const critical = issues.filter(i => i.severity === 'high').length;
+          if (critical > 0) return `<strong style="color:#f38ba8"> ${critical} Critical issues</strong> may be hurting your rankings and AI visibility.`;
+          return ' Your site has a solid foundation with some areas for improvement.';
+        })()}
       </div>
 
       <!-- Top 3 Issues Preview -->
